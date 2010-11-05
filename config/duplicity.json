@@ -1,0 +1,6 @@
+{
+  "user":"bobg",
+  "mail_domain":"thegreenshields.com",
+  "mail_users":["bob", "nicky", "bryn", "luca", "ione"],
+  "recipes": ["duplicity"]
+}

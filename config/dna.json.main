@@ -1,0 +1,7 @@
+{
+  "user":"bobg",
+  "mail_domain":"thegreenshields.com",
+  "mail_users":["bob", "nicky", "bryn", "luca", "ione"],
+  "vboxusers":["bobg"],
+  "run_list": [ "recipe[sshserver]", "recipe[keepassx]", "recipe[testbed]", "recipe[tree]", "recipe[thunderbird]", "recipe[samsungtools]", "recipe[openvpn]",  "recipe[vimfull]",  "recipe[restricted]", "recipe[guake]", "recipe[gnome-do]" ]
+}
