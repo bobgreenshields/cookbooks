@@ -8,5 +8,6 @@ auth_keys.each do |key_data|
 	  group key_data["user"]
 	  variables(
 	    :keystrings => key_data["keys"]
+          )
 	end
 end
