@@ -20,3 +20,8 @@
 apt_package "openssh-server" do
 	action :install
 end
+
+service "ssh" do
+	supports [ :restart, :reload, :status ]
+	action [ :enable, :start ]
+end
