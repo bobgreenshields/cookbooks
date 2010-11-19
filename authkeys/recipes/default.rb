@@ -10,7 +10,7 @@ auth_keys.each do |key_data|
     action :create
   end
   Chef::Log.info("#{kuser} has #{key_data["keys"].length} keys")
-  template "/home#{kuser}/.ssh/authorized_keys" do
+  template "/home/#{kuser}/.ssh/authorized_keys" do
     source "authorized_keys.erb"
     mode "0644"
     owner kuser
