@@ -48,6 +48,13 @@ svcs = value_for_platform(
   "default" => ["smbd", "nmdb"]
 )
 
+svcs.each do |s|
+  service s do
+    pattern "smbd|nmbd" if node["platform"] =~ /^arch$/
+    action [:enable, :start]
+  end
+end
+
 template node["samba"]["config"] do
   source "smb.conf.erb"
   owner "root"
@@ -65,11 +72,3 @@ if users
     end
   end
 end
-
-svcs.each do |s|
-  service s do
-    pattern "smbd|nmbd" if node["platform"] =~ /^arch$/
-    action [:enable, :start]
-  end
-end
-
