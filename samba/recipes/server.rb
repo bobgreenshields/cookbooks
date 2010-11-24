@@ -33,7 +33,7 @@ end
 #  users = search("users", "*:*")
 #end
 
-users = node[:samba_users]
+smb_users = node[:samba_users]
 
 package value_for_platform(
   ["ubuntu", "debian", "arch"] => { "default" => "samba" },
@@ -74,11 +74,10 @@ template node["samba"]["config"] do
   notifies :restart, "service[smbd]"
 end
 
-if users
-  users.each do |u|
-    samba_user u["id"] do
-      password u["smbpasswd"]
-      action [:create, :enable]
-    end
-  end
+smb_users.each do |u|
+	Chef::Log.info "Adding samba user #{u['id']} with pword #{u['smbpasswd']}"
+	samba_user u["id"] do
+		password u["smbpasswd"]
+		action [:create, :enable]
+	end
 end
