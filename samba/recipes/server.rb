@@ -17,10 +17,11 @@
 # limitations under the License.
 #
 
-users = nil
-shares = data_bag_item("samba", "shares")
+#users = nil
+#shares = data_bag_item("samba", "shares")
+shares = node[:shares]
 
-shares["shares"].each do |k,v|
+shares.each do |k,v|
   if v.has_key?("path")
     directory v["path"] do
       recursive true
@@ -28,9 +29,11 @@ shares["shares"].each do |k,v|
   end
 end
 
-unless node["samba"]["passdb_backend"] =~ /^ldapsam/
-  users = search("users", "*:*")
-end
+#unless node["samba"]["passdb_backend"] =~ /^ldapsam/
+#  users = search("users", "*:*")
+#end
+
+users = node[:samba_users]
 
 package value_for_platform(
   ["ubuntu", "debian", "arch"] => { "default" => "samba" },
@@ -57,7 +60,7 @@ template node["samba"]["config"] do
   owner "root"
   group "root"
   mode "0644"
-  variables :shares => shares["shares"]
+  variables :shares => shares
   notifies :restart, resources(:service => svcs)
 end
 
