@@ -48,11 +48,20 @@ svcs = value_for_platform(
   "default" => ["smbd", "nmdb"]
 )
 
-svcs.each do |s|
-  service s do
-    pattern "smbd|nmbd" if node["platform"] =~ /^arch$/
-    action [:enable, :start]
-  end
+#svcs.each do |s|
+#  service s do
+#    pattern "smbd|nmbd" if node["platform"] =~ /^arch$/
+#    action [:enable, :start]
+#  end
+#end
+
+service "smbd" do
+	supports :status => true, :restart => true, :reload => true
+	action [:enable, :start]
+end
+
+service "nmbd" do
+	action [:enable, :start]
 end
 
 template node["samba"]["config"] do
@@ -61,7 +70,8 @@ template node["samba"]["config"] do
   group "root"
   mode "0644"
   variables :shares => shares
-  notifies :restart, resources(:service => svcs)
+#  notifies :restart, resources(:service => svcs)
+  notifies :restart, "service[smbd]"
 end
 
 if users
