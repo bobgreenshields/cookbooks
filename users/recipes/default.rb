@@ -1,3 +1,8 @@
+apt_package "libshadow-ruby1.8" do
+	action :install
+end
+
+
 users = node[:users]
 
 users.each do |u|
