@@ -23,3 +23,4 @@ attribute :exists, :default => false
 attribute :disabled, :default => false
 attribute :pwdunset, :default => true
 attribute :nopwd, :default => false
+attribute :overwrite, :default => false
