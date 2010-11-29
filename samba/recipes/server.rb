@@ -25,13 +25,16 @@ shares.each do |k,v|
 	smb_share_meta[k] = v["smb_meta"]
 end
 
-#shares.each do |k,v|
-#  if v.has_key?("path")
-#    directory v["path"] do
-#      recursive true
-#    end
-#  end
-#end
+shares.each do |k,v|
+  if v["smb_meta"].has_key?("path")
+    directory v["smb_meta"]["path"] do
+    	owner v["owner"]
+    	group v["group"]
+    	mode v["mode"]
+      recursive true
+    end
+  end
+end
 
 #unless node["samba"]["passdb_backend"] =~ /^ldapsam/
 #  users = search("users", "*:*")
