@@ -35,6 +35,8 @@ action :create do
 		end
 		new_resource.updated_by_last_action(true)
   else # @smbuser.exists
+  Chef::Log.info("pwdunset is #{@smbuser.pwdunset}")
+  Chef::Log.info("overwrite is #{@smbuser.overwrite}")
   	if @smbuser.pwdunset or @smbuser.overwrite
   		if pw =""
   			unless @smbuser.nopwd
