@@ -25,11 +25,11 @@ action :create do
 	pw = new_resource.password
   unless @smbuser.exists
     if pw = ""
-			execute "Create #{new_resource.name}" do
+			execute "Create #{new_resource.name} and set no password" do
 				command "smbpasswd -s -n -a #{new_resource.name}"
 			end
 		else
-			execute "Create #{new_resource.name}" do
+			execute "Create #{new_resource.name} and set password" do
 				command "echo -ne '#{pw}\n#{pw}\n' | smbpasswd -s -a #{new_resource.name}"
 			end
 		end
@@ -38,7 +38,7 @@ action :create do
   	if @smbuser.pwdunset or @smbuser.overwrite
   		if pw =""
   			unless @smbuser.nopwd
-					execute "Change password for #{new_resource.name}" do
+					execute "Change password for #{new_resource.name} to no password" do
 						command "smbpasswd -s -n #{new_resource.name}"
 					end
 					new_resource.updated_by_last_action(true)
