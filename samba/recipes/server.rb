@@ -48,12 +48,12 @@ package value_for_platform(
   "default" => "samba"
 )
 
-svcs = value_for_platform(
-  ["ubuntu", "debian"] => { "default" => ["smbd", "nmdb"] },
-  ["redhat", "centos", "fedora"] => { "default" => ["smb", "nmb"] },
-  "arch" => { "default" => [ "samba" ] },
-  "default" => ["smbd", "nmdb"]
-)
+#svcs = value_for_platform(
+#  ["ubuntu", "debian"] => { "default" => ["smbd", "nmdb"] },
+#  ["redhat", "centos", "fedora"] => { "default" => ["smb", "nmb"] },
+#  "arch" => { "default" => [ "samba" ] },
+#  "default" => ["smbd", "nmdb"]
+#)
 
 #svcs.each do |s|
 #  service s do
@@ -71,14 +71,16 @@ service "nmbd" do
 	action [:enable, :start]
 end
 
+svcs = ["smbd", "nmbd"]
+
 template node["samba"]["config"] do
   source "smb.conf.erb"
   owner "root"
   group "root"
   mode "0644"
   variables :shares => smb_share_meta
-#  notifies :restart, resources(:service => svcs)
-  notifies :restart, "service[smbd]"
+  notifies :restart, resources(:service => svcs)
+#  notifies :restart, "service[smbd]"
 end
 
 #smb_users.each do |u|
