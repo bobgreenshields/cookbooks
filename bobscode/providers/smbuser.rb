@@ -72,7 +72,8 @@ action :delete do
 end
 
 def load_current_resource
-  @smbuser = Chef::Resource::SambaUser.new(new_resource.name)
+#  @smbuser = Chef::Resource::SambaUser.new(new_resource.name)
+  @smbuser = Chef::Resource::BobscodeSmbuser.new(new_resource.name)
 
   Chef::Log.debug("Checking for smbuser #{new_resource.name}")
 #  u = shell_out("pdbedit -Lv -u #{new_resource.name}")
