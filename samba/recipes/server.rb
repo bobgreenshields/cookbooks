@@ -20,14 +20,18 @@
 #users = nil
 #shares = data_bag_item("samba", "shares")
 shares = node[:shares]
-
+smb_share_meta = {}
 shares.each do |k,v|
-  if v.has_key?("path")
-    directory v["path"] do
-      recursive true
-    end
-  end
+	smb_share_meta[k] = v["smb_meta"]
 end
+
+#shares.each do |k,v|
+#  if v.has_key?("path")
+#    directory v["path"] do
+#      recursive true
+#    end
+#  end
+#end
 
 #unless node["samba"]["passdb_backend"] =~ /^ldapsam/
 #  users = search("users", "*:*")
@@ -69,7 +73,7 @@ template node["samba"]["config"] do
   owner "root"
   group "root"
   mode "0644"
-  variables :shares => shares
+  variables :shares => smb_share_meta
 #  notifies :restart, resources(:service => svcs)
   notifies :restart, "service[smbd]"
 end
