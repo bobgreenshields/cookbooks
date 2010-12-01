@@ -24,7 +24,7 @@ include Chef::Mixin::ShellOut
 action :create do
 	pw = new_resource.password
   Chef::Log.info("new_resource.overwrite is #{new_resource.overwrite}")
-	overwite = new_resource.overwrite
+#	overwite = new_resource.overwrite
   unless @smbuser.exists
     if pw == ""
 			execute "Create #{new_resource.name} and set no password" do
@@ -38,8 +38,8 @@ action :create do
 		new_resource.updated_by_last_action(true)
   else # @smbuser.exists
   Chef::Log.info("pwdunset is #{@smbuser.pwdunset}")
-  Chef::Log.info("overwrite is #{overwrite}")
-  	if @smbuser.pwdunset or overwrite
+  Chef::Log.info("overwrite is #{new_resource.overwrite}")
+  	if @smbuser.pwdunset or new_resource.overwrite
   		if pw == ""
   			unless @smbuser.nopwd
 					execute "Change password for #{new_resource.name} to no password" do
