@@ -93,7 +93,8 @@ def load_current_resource
   Chef::Log.info("info[4] is #{info[4]}")
 	exists = info[0] == new_resource.name
   Chef::Log.info("exists is #{exists}")
-	r_pwdunset = /^X{32}$/
+#	r_pwdunset = /^X{32}$/
+	r_pwdunset = /^X{32,32}$/
 	r_nopwd = /^NO PASSWORD(\d|[A-F]|X){21}$/
 	if exists then
 		disabled = info[4].include?("D")
