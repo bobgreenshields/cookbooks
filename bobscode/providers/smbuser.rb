@@ -86,32 +86,32 @@ def load_current_resource
 #  disabled = u.stdout.include?("Account Flags.*[D")
   u = shell_out("pdbedit -L -w -u #{new_resource.name}")
   info = u.stdout.split ':'
-  Chef::Log.info("info[0] is #{info[0]}")
-  Chef::Log.info("info[1] is #{info[1]}")
-  Chef::Log.info("info[2] is #{info[2]}")
-  Chef::Log.info("info[3] is #{info[3]}")
-  Chef::Log.info("info[4] is #{info[4]}")
+  Chef::Log.info("lcr info[0] is #{info[0]}")
+  Chef::Log.info("lcr info[1] is #{info[1]}")
+  Chef::Log.info("lcr info[2] is #{info[2]}")
+  Chef::Log.info("lcr info[3] is #{info[3]}")
+  Chef::Log.info("lcr info[4] is #{info[4]}")
 	exists = info[0] == new_resource.name
-  Chef::Log.info("exists is #{exists}")
+  Chef::Log.info("lcr exists is #{exists}")
 	r_pwdunset = /^X{32}$/
 #	r_pwdunset = /^X{32,32}$/
 	r_nopwd = /^NO PASSWORD(\d|[A-F]|X){21}$/
 	if exists then
 		disabled = info[4].include?("D")
 #		match2 = info[2] =~ r_pwdunset
-#		Chef::Log.info("match2 is #{match2.inspect}")
+#		Chef::Log.info("lcr match2 is #{match2.inspect}")
 #		match3 = info[3] =~ r_pwdunset
-#		Chef::Log.info("match3 is #{match3.inspect}")
+#		Chef::Log.info("lcr match3 is #{match3.inspect}")
 #		pwdunset = (match2 and match3)
-#		Chef::Log.info("pwdunset is #{pwdunset}")
+#		Chef::Log.info("lcr pwdunset is #{pwdunset}")
 
 		pwdunset = (info[2] =~ r_pwdunset and info[3] =~ r_pwdunset)
 #		pwdunset = pwdunset ? true : false
 		nopwd = (info[2] =~ r_nopwd or info[3] =~ r_nopwd)
 	end
-  Chef::Log.info("disabled is #{disabled}")
-  Chef::Log.info("pwdunset is #{pwdunset}")
-  Chef::Log.info("nopwd is #{nopwd}")
+  Chef::Log.info("lcr disabled is #{disabled}")
+  Chef::Log.info("lcr pwdunset is #{pwdunset}")
+  Chef::Log.info("lcr nopwd is #{nopwd}")
   @smbuser.exists(exists)
   @smbuser.disabled(disabled)
   @smbuser.pwdunset(pwdunset)
