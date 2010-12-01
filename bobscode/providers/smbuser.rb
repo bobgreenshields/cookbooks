@@ -97,7 +97,7 @@ def load_current_resource
 	r_nopwd = /^NO PASSWORD(\d|[A-F]|X){21}$/
 	if exists then
 		disabled = info[4].include?("D")
-		pwdunset = (info[2] =~ r_pwdunset) and (info[3] =~ r_pwdunset)
+		pwdunset = info[2] =~ r_pwdunset and info[3] =~ r_pwdunset
 		pwdunset = pwdunset ? true : false
 		nopwd = (info[2] =~ r_nopwd) or (info[3] =~ r_nopwd)
 	end
