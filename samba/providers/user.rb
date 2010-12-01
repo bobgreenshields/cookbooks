@@ -22,7 +22,8 @@ require 'chef/mixin/language'
 include Chef::Mixin::ShellOut
 
 action :create do
-  unless @smbuser.exists
+#  unless @smbuser.exists
+  unless false
     pw = new_resource.password
     execute "Create #{new_resource.name}" do
       command "echo -ne '#{pw}\n#{pw}\n' | smbpasswd -s -a #{new_resource.name}"
