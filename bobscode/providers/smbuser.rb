@@ -93,21 +93,21 @@ def load_current_resource
   Chef::Log.info("info[4] is #{info[4]}")
 	exists = info[0] == new_resource.name
   Chef::Log.info("exists is #{exists}")
-#	r_pwdunset = /^X{32}$/
-	r_pwdunset = /^X{32,32}$/
+	r_pwdunset = /^X{32}$/
+#	r_pwdunset = /^X{32,32}$/
 	r_nopwd = /^NO PASSWORD(\d|[A-F]|X){21}$/
 	if exists then
 		disabled = info[4].include?("D")
-		match2 = info[2] =~ r_pwdunset
-		Chef::Log.info("match2 is #{match2.inspect}")
-		match3 = info[3] =~ r_pwdunset
-		Chef::Log.info("match3 is #{match3.inspect}")
-		pwdunset = (match2 and match3)
-		Chef::Log.info("pwdunset is #{pwdunset}")
+#		match2 = info[2] =~ r_pwdunset
+#		Chef::Log.info("match2 is #{match2.inspect}")
+#		match3 = info[3] =~ r_pwdunset
+#		Chef::Log.info("match3 is #{match3.inspect}")
+#		pwdunset = (match2 and match3)
+#		Chef::Log.info("pwdunset is #{pwdunset}")
 
-#		pwdunset = info[2] =~ r_pwdunset and info[3] =~ r_pwdunset
+		pwdunset = (info[2] =~ r_pwdunset and info[3] =~ r_pwdunset)
 #		pwdunset = pwdunset ? true : false
-		nopwd = (info[2] =~ r_nopwd) or (info[3] =~ r_nopwd)
+		nopwd = (info[2] =~ r_nopwd or info[3] =~ r_nopwd)
 	end
   Chef::Log.info("disabled is #{disabled}")
   Chef::Log.info("pwdunset is #{pwdunset}")
