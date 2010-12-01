@@ -88,7 +88,7 @@ smb_users.each do |u|
 	Chef::Log.info "Adding samba user #{u['id']} with pword #{u['smbpasswd']}"
 	bobscode_smbuser u["id"] do
 		password u["smbpasswd"]
-		overwrite true
+		overwrite false
 		action [:create, :enable]
 		provider "bobscode_smbuser"
 	end
