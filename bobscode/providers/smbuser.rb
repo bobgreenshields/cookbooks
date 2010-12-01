@@ -103,6 +103,7 @@ def load_current_resource
 		match3 = info[3] =~ r_pwdunset
 		Chef::Log.info("match3 is #{match3.inspect}")
 		pwdunset = match2 and match3
+		Chef::Log.info("pwdunset is #{pwdunset}")
 
 #		pwdunset = info[2] =~ r_pwdunset and info[3] =~ r_pwdunset
 #		pwdunset = pwdunset ? true : false
