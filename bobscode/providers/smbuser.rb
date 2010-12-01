@@ -100,6 +100,9 @@ def load_current_resource
 		pwdunset = (info[2] =~ r_pwdunset) and (info[3] =~ r_pwdunset)
 		nopwd = (info[2] =~ r_nopwd) or (info[3] =~ r_nopwd)
 	end
+  Chef::Log.info("disabled is #{disabled}")
+  Chef::Log.info("pwdunset is #{pwdunset}")
+  Chef::Log.info("nopwd is #{nopwd}")
   @smbuser.exists(exists)
   @smbuser.disabled(disabled)
   @smbuser.pwdunset(pwdunset)
