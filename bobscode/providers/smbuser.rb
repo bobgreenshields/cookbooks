@@ -23,6 +23,7 @@ include Chef::Mixin::ShellOut
 
 action :create do
 	pw = new_resource.password
+  Chef::Log.info("new_resource.overwrite is #{new_resource.overwrite}")
 	overwite = new_resource.overwrite
   unless @smbuser.exists
     if pw == ""
