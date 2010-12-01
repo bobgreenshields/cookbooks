@@ -86,7 +86,7 @@ def load_current_resource
 #  disabled = u.stdout.include?("Account Flags.*[D")
   u = shell_out("pdbedit -L -w -u #{new_resource.name}")
   info = u.stdout.split ':'
-  Chef::Log.debug("info[0] is #{info[0]}")
+  Chef::Log.info("info[0] is #{info[0]}")
 	exists = info[0] == new_resource.name
 	r_pwdunset = /^X{32}$/
 	r_nopwd = /^NO PASSWORD(\d|[A-F]|X){21}$/
