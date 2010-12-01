@@ -50,7 +50,7 @@ action :create do
   		else # if pw = ""
 				execute "Change password for #{new_resource.name}" do
 #					command "echo -ne '#{pw}\n#{pw}\n' | smbpasswd -s #{new_resource.name}"
-					command "echo -e '#{pw}\n#{pw}\n' | sudo smbpasswd -s -a #{new_resource.name}"
+					command "echo -e '#{pw}\n#{pw}\n' | smbpasswd -s -a #{new_resource.name}"
 				end
 				new_resource.updated_by_last_action(true)
   		end # if pw = ""
