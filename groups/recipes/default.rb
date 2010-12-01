@@ -17,13 +17,11 @@
 # limitations under the License.
 #
 
-if node[:groups]
-	groups = node[:groups]
-	groups.each | g | do
-		group g["id"] do
-			gid g["gid"]
-			members g["members"]
-		end
+groups = node[:groups]
+groups.each | g | do
+	group g["id"] do
+		gid g["gid"]
+		members g["members"]
 	end
 end
 
