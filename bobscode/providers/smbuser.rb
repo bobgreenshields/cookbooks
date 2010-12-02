@@ -32,6 +32,7 @@ end
 
 def set_nopassword(user)
 	Chef::Log::info("set_nopw: user #{user}")
+	Chef::Log::info("set_nopw: smbuser.nopassword is #{@smbuser.nopassword}")
 end
 
 def set_strpassword(user, pw)
