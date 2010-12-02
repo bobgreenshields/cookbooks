@@ -23,7 +23,7 @@ include Chef::Mixin::ShellOut
 
 def set_password(user, pw)
 	Chef::Log::info("set_pw: user #{user} pw #{pw}")
-	if pw = ""
+	if pw == ""
 		set_nopassword(user)
 	else
 		set_strpassword(user, pw)
