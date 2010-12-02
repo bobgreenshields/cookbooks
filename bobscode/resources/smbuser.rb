@@ -19,7 +19,8 @@
 actions :create, :enable, :delete
 
 attribute :password, :kind_of => String
-attribute :overwrite, :kind_of => String, :default => "true"
+#attribute :overwrite, :kind_of => String, :default => "true"
+attribute :overwrite, :default => true
 attribute :exists, :default => false
 attribute :disabled, :default => false
 attribute :nopassword, :default => false
