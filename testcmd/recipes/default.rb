@@ -18,12 +18,22 @@
 #
 
 
-pwd = node[:pwd]
-user = node[:user]
+#pwd = node[:pwd]
+#user = node[:user]
+#
+#Chef::Log::info pwd
+#Chef::Log::info user
+#execute "new smbpasswd of #{pwd} for #{user}" do
+#	command "(echo #{pwd}; echo #{pwd} ) | smbpasswd -s -a #{user}"
+#	action :run
+#end
 
-Chef::Log::info pwd
-Chef::Log::info user
-execute "new smbpasswd of #{pwd} for #{user}" do
-	command "(echo #{pwd}; echo #{pwd} ) | smbpasswd -s -a #{user}"
-	action :run
+smb_users.each do |u|
+	Chef::Log.info "Adding samba user #{u['id']} with pword #{u['smbpasswd']}"
+	bobscode_smbuser u["id"] do
+		password u["smbpasswd"]
+#		overwrite false
+		action [:create, :enable]
+		provider "bobscode_smbuser"
+	end
 end

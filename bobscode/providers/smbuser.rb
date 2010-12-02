@@ -22,41 +22,14 @@ require 'chef/mixin/language'
 include Chef::Mixin::ShellOut
 
 action :create do
-	pw = new_resource.password
-  Chef::Log.info("cr new_resource.overwrite is #{new_resource.overwrite}")
-#	overwite = new_resource.overwrite
   unless @smbuser.exists
-    if pw == ""
-			execute "Create #{new_resource.name} and set no password" do
-				command "smbpasswd -s -n -a #{new_resource.name}"
-			end
-		else
-			execute "Create #{new_resource.name} and set password" do
-				command "echo -ne '#{pw}\n#{pw}\n' | smbpasswd -s -a #{new_resource.name}"
-			end
-		end
-		new_resource.updated_by_last_action(true)
-  else # @smbuser.exists
-  Chef::Log.info("cr pwdunset is #{@smbuser.pwdunset}")
-  Chef::Log.info("cr overwrite is #{new_resource.overwrite}")
-  	if @smbuser.pwdunset or new_resource.overwrite
-  		if pw == ""
-  			unless @smbuser.nopwd
-					execute "Change password for #{new_resource.name} to no password" do
-						command "smbpasswd -s -n #{new_resource.name}"
-					end
-					new_resource.updated_by_last_action(true)
-  			end
-  		else # if pw = ""
-				execute "Change password for #{new_resource.name}" do
-#					command "echo -ne '#{pw}\n#{pw}\n' | smbpasswd -s #{new_resource.name}"
-					command "echo -e '#{pw}\n#{pw}\n' | smbpasswd -s -a #{new_resource.name}"
-				end
-				new_resource.updated_by_last_action(true)
-  		end # if pw = ""
-  	end # if @smbuser.pwdunset or overwrite
-  end # unless @smbuser.exists
-end # action :create
+    pw = new_resource.password
+    execute "Create #{new_resource.name}" do
+      command "(echo -ne '#{pw}\n#{pw}\n' | smbpasswd -s -a #{new_resource.name}"
+    end
+    new_resource.updated_by_last_action(true)
+  end
+end
 
 action :enable do
   if @smbuser.disabled
@@ -77,43 +50,20 @@ action :delete do
 end
 
 def load_current_resource
-#  @smbuser = Chef::Resource::SambaUser.new(new_resource.name)
-  @smbuser = Chef::Resource::BobscodeSmbuser.new(new_resource.name)
+  @smbuser = Chef::Resource::SambaUser.new(new_resource.name)
 
   Chef::Log.debug("Checking for smbuser #{new_resource.name}")
 #  u = shell_out("pdbedit -Lv -u #{new_resource.name}")
+  info = shell_out("pdbedit -Lw -u #{new_resource.name}").split(':')
+  Chef::Log.info("info[0] is #{info[0]}")
+  Chef::Log.info("info[1] is #{info[1]}")
+  Chef::Log.info("info[2] is #{info[2]}")
+  Chef::Log.info("info[3] is #{info[3]}")
+  Chef::Log.info("info[4] is #{info[4]}")
 #  exists = u.stdout.include?(new_resource.name)
+  exists = info[0] == new_resource.name
 #  disabled = u.stdout.include?("Account Flags.*[D")
-  u = shell_out("pdbedit -L -w -u #{new_resource.name}")
-  info = u.stdout.split ':'
-  Chef::Log.info("lcr info[0] is #{info[0]}")
-  Chef::Log.info("lcr info[1] is #{info[1]}")
-  Chef::Log.info("lcr info[2] is #{info[2]}")
-  Chef::Log.info("lcr info[3] is #{info[3]}")
-  Chef::Log.info("lcr info[4] is #{info[4]}")
-	exists = info[0] == new_resource.name
-  Chef::Log.info("lcr exists is #{exists}")
-	r_pwdunset = /^X{32}$/
-#	r_pwdunset = /^X{32,32}$/
-	r_nopwd = /^NO PASSWORD(\d|[A-F]|X){21}$/
-	if exists then
-		disabled = info[4].include?("D")
-#		match2 = info[2] =~ r_pwdunset
-#		Chef::Log.info("lcr match2 is #{match2.inspect}")
-#		match3 = info[3] =~ r_pwdunset
-#		Chef::Log.info("lcr match3 is #{match3.inspect}")
-#		pwdunset = (match2 and match3)
-#		Chef::Log.info("lcr pwdunset is #{pwdunset}")
-
-		pwdunset = (info[2] =~ r_pwdunset and info[3] =~ r_pwdunset)
-#		pwdunset = pwdunset ? true : false
-		nopwd = (info[2] =~ r_nopwd or info[3] =~ r_nopwd)
-	end
-  Chef::Log.info("lcr disabled is #{disabled}")
-  Chef::Log.info("lcr pwdunset is #{pwdunset}")
-  Chef::Log.info("lcr nopwd is #{nopwd}")
+  disabled = info[4].include?("Account Flags.*[D")
   @smbuser.exists(exists)
   @smbuser.disabled(disabled)
-  @smbuser.pwdunset(pwdunset)
-  @smbuser.nopwd(nopwd)
 end
