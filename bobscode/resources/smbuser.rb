@@ -24,3 +24,4 @@ attribute :overwrite, :default => true
 attribute :exists, :default => false
 attribute :disabled, :default => false
 attribute :nopassword, :default => false
+attribute :unsetpassword, :default => false

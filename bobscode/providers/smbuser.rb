@@ -54,6 +54,7 @@ action :create do
 	Chef::Log::info("create: smbuser.exists is #{@smbuser.exists}")
 	Chef::Log::info("create: smbuser.disabled is #{@smbuser.disabled}")
 	Chef::Log::info("create: smbuser.nopassword is #{@smbuser.nopassword}")
+	Chef::Log::info("create: smbuser.unsetpassword is #{@smbuser.unsetpassword}")
 #	Chef::Log::info("create: smbuser.overwrite is #{@smbuser.overwrite}")
   Chef::Log.info("create: new_resource.overwrite is #{new_resource.overwrite}")
   unless @smbuser.exists and not new_resource.overwrite
@@ -107,8 +108,11 @@ def load_current_resource
   disabled = info[4].include?("Account Flags.*[D")
   r_nopassword = /^NO PASSWORD/
   nopassword = info[2] =~ r_nopassword || info[3] =~ r_nopassword
+  r_unsetpassword = /^X{32}$/
+  unsetpassword = info[2] =~ r_unsetpassword && info[3] =~ r_unsetpassword
   @smbuser.exists(exists)
   @smbuser.disabled(disabled)
   @smbuser.nopassword(nopassword ? true : false)
+  @smbuser.unsetpassword(unsetpassword ? true : false)
 #  @smbuser.overwrite(new_resource.overwrite)
 end
