@@ -21,8 +21,8 @@ require 'chef/mixin/shell_out'
 require 'chef/mixin/language'
 include Chef::Mixin::ShellOut
 
-def set_password
-	Chef::Log::info("set_pw: user #{new_resource.name} pw #{new_resource.password}")
+def set_password(user, pw)
+	Chef::Log::info("set_pw: user #{user} pw #{pw}")
 end
 
 action :create do
