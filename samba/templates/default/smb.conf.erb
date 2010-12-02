@@ -14,6 +14,11 @@
   load printers = <%= node["samba"]["load_printers"] %>
   passdb backend = <%= node["samba"]["passdb_backend"] %>
   dns proxy = <%= node["samba"]["dns_proxy"] %>
+	<% if node["samba_group"] -%>
+  <% node["samba_group"].each do |o,v| -%>
+  <%= o %> = <%= v.respond_to?(:join) ? v.join(',') : v %>
+  <% end -%>
+	<% end -%>
 	<% if node["smbusermap"] -%>
 	username map = <%= node["smbusermap"]["mapfile"] %>
 	<% end -%>
