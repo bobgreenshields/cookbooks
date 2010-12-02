@@ -71,6 +71,9 @@ def load_current_resource
   exists = info[0] == new_resource.name
 #  disabled = u.stdout.include?("Account Flags.*[D")
   disabled = info[4].include?("Account Flags.*[D")
+  r_nopassword = /^NO PASSWORD/
+  nopassword = info[2] =~ r_nopassword || info[3] =~ r_nopassword
   @smbuser.exists(exists)
   @smbuser.disabled(disabled)
+  @smbuser.nopassword(nopassword)
 end
