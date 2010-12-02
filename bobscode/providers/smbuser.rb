@@ -57,6 +57,8 @@ def load_current_resource
 #  @smbuser = Chef::Resource::SambaUser.new(new_resource.name)
   @smbuser = Chef::Resource::BobscodeSmbuser.new(new_resource.name)
 
+  Chef::Log.info("lcr: new_resource.overwrite is #{new_resource.overwrite}")
+
   Chef::Log.debug("Checking for smbuser #{new_resource.name}")
 #  u = shell_out("pdbedit -Lv -u #{new_resource.name}")
   u = shell_out("pdbedit -Lw -u #{new_resource.name}")
@@ -77,4 +79,5 @@ def load_current_resource
   @smbuser.exists(exists)
   @smbuser.disabled(disabled)
   @smbuser.nopassword(nopassword ? true : false)
+  @smbuser.overwrite(new_resource.overwrite)
 end
