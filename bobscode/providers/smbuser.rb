@@ -32,10 +32,11 @@ action :create do
 #	Chef::Log::info("create: smbuser.overwrite is #{@smbuser.overwrite}")
   Chef::Log.info("create: new_resource.overwrite is #{new_resource.overwrite}")
   unless @smbuser.exists
-    pw = new_resource.password
-    execute "Create #{new_resource.name}" do
-      command "(echo -ne '#{pw}\n#{pw}\n' | smbpasswd -s -a #{new_resource.name}"
-    end
+  	set_password(new_resource.name, new_resource.password)
+#    pw = new_resource.password
+#    execute "Create #{new_resource.name}" do
+#      command "(echo -ne '#{pw}\n#{pw}\n' | smbpasswd -s -a #{new_resource.name}"
+#    end
     new_resource.updated_by_last_action(true)
   end
 end
