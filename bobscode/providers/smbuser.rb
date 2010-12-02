@@ -31,7 +31,7 @@ action :create do
 	Chef::Log::info("create: smbuser.nopassword is #{@smbuser.nopassword}")
 #	Chef::Log::info("create: smbuser.overwrite is #{@smbuser.overwrite}")
   Chef::Log.info("create: new_resource.overwrite is #{new_resource.overwrite}")
-  unless @smbuser.exists
+  unless @smbuser.exists and not new_resource.overwrite
   	set_password(new_resource.name, new_resource.password)
 #    pw = new_resource.password
 #    execute "Create #{new_resource.name}" do
