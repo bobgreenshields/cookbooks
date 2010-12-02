@@ -33,7 +33,8 @@ smb_users.each do |u|
 	bobscode_smbuser u["id"] do
 		password u["smbpasswd"]
 #		overwrite false
-		action [:create, :enable]
+#		action [:create, :enable]
+		action [:create]
 		provider "bobscode_smbuser"
 	end
 end
