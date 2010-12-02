@@ -56,8 +56,8 @@ def load_current_resource
 #  u = shell_out("pdbedit -Lv -u #{new_resource.name}")
   u = shell_out("pdbedit -Lw -u #{new_resource.name}")
   Chef::Log.info("pdbedit yields #{u.inspect}")
-  info = [0, 1, 2, 3, "hello"]
-#  info = u.String::split(':')
+#  info = [0, 1, 2, 3, "hello"]
+  info = u.stdout.split(':')
   Chef::Log.info("info[0] is #{info[0]}")
   Chef::Log.info("info[1] is #{info[1]}")
   Chef::Log.info("info[2] is #{info[2]}")
