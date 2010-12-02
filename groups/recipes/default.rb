@@ -19,9 +19,10 @@
 
 groups = node[:groups]
 groups.each | g | do
-	group g["id"] do
-		gid g["gid"]
-		members g["members"]
-	end
+	Chef::Log::info g.inspect
+#	group g["id"] do
+#		gid g["gid"]
+#		members g["members"]
+#	end
 end
 
