@@ -21,6 +21,10 @@ require 'chef/mixin/shell_out'
 require 'chef/mixin/language'
 include Chef::Mixin::ShellOut
 
+def set_password
+	Chef::Log::info("set_pw: user #{new_resource.name} pw #{new_resource.password}")
+end
+
 action :create do
 	Chef::Log::info("create: smbuser.exists is #{@smbuser.exists}")
 	Chef::Log::info("create: smbuser.disabled is #{@smbuser.disabled}")
