@@ -74,6 +74,8 @@ end
 
 svcs = ["smbd", "nmbd"]
 
+
+
 template node["samba"]["config"] do
   source "smb.conf.erb"
   owner "root"
