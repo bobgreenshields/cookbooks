@@ -44,7 +44,7 @@ end
 def set_strpassword(user, pw)
 	Chef::Log::info("set_strpw: user #{user} pw #{pw}")
 	execute "set_strpw: setting password of #{pw} for #{user}" do
-		command "(echo #{pwd}; echo #{pwd} ) | smbpasswd -s -a #{user}"
+		command "(echo #{pw}; echo #{pw} ) | smbpasswd -s -a #{user}"
 		action :run
 	end
 	new_resource.updated_by_last_action(true)
