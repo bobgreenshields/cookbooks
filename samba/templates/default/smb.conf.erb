@@ -15,7 +15,7 @@
   passdb backend = <%= node["samba"]["passdb_backend"] %>
   dns proxy = <%= node["samba"]["dns_proxy"] %>
 	<% if node["smbusermap"] -%>
-		username map = <%= node["smbusermap"]["mapfile"] %>
+	username map = <%= node["smbusermap"]["mapfile"] %>
 	<% end -%>
 
 #============================ Share Definitions ==============================
