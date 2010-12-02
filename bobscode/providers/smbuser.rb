@@ -22,6 +22,8 @@ require 'chef/mixin/language'
 include Chef::Mixin::ShellOut
 
 action :create do
+	Chef::Log::info("create: smbuser.exists is #{@smbuser.exists}")
+	Chef::Log::info("create: smbuser.disabled is #{@smbuser.disabled}")
   unless @smbuser.exists
     pw = new_resource.password
     execute "Create #{new_resource.name}" do
