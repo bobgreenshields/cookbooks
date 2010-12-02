@@ -23,6 +23,19 @@ include Chef::Mixin::ShellOut
 
 def set_password(user, pw)
 	Chef::Log::info("set_pw: user #{user} pw #{pw}")
+	if pw = ""
+		set_nopassword(user)
+	else
+		set_strpassword(user, pw)
+	end
+end
+
+def set_nopassword(user)
+	Chef::Log::info("set_nopw: user #{user}")
+end
+
+def set_strpassword(user, pw)
+	Chef::Log::info("set_strpw: user #{user} pw #{pw}")
 end
 
 action :create do
