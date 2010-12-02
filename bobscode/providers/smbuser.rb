@@ -38,6 +38,7 @@ def set_nopassword(user)
 			command "smbpasswd -a -n #{user}"
 		end
     new_resource.updated_by_last_action(true)
+  end
 end
 
 def set_strpassword(user, pw)
