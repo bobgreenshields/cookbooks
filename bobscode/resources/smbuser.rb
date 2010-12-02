@@ -22,3 +22,4 @@ attribute :password, :kind_of => String
 attribute :exists, :default => false
 attribute :disabled, :default => false
 attribute :nopassword, :default => false
+attribute :overwrite, :default => true

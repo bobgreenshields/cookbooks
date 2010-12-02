@@ -25,6 +25,7 @@ action :create do
 	Chef::Log::info("create: smbuser.exists is #{@smbuser.exists}")
 	Chef::Log::info("create: smbuser.disabled is #{@smbuser.disabled}")
 	Chef::Log::info("create: smbuser.nopassword is #{@smbuser.nopassword}")
+	Chef::Log::info("create: smbuser.overwrite is #{@smbuser.overwrite}")
   unless @smbuser.exists
     pw = new_resource.password
     execute "Create #{new_resource.name}" do
