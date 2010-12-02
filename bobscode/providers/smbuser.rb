@@ -55,7 +55,8 @@ def load_current_resource
   Chef::Log.debug("Checking for smbuser #{new_resource.name}")
 #  u = shell_out("pdbedit -Lv -u #{new_resource.name}")
   u = shell_out("pdbedit -Lw -u #{new_resource.name}")
-  Chef::Log.info("pdbedit yields #{u}")
+  Chef::Log.info("pdbedit yields #{u.inspect}")
+  info = [0, 1, 2, 3, 4]
 #  info = u.String::split(':')
   Chef::Log.info("info[0] is #{info[0]}")
   Chef::Log.info("info[1] is #{info[1]}")
