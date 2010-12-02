@@ -75,5 +75,5 @@ def load_current_resource
   nopassword = info[2] =~ r_nopassword || info[3] =~ r_nopassword
   @smbuser.exists(exists)
   @smbuser.disabled(disabled)
-  @smbuser.nopassword(nopassword)
+  @smbuser.nopassword(nopassword ? true : false)
 end
