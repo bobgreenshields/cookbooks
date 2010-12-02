@@ -33,6 +33,11 @@ end
 def set_nopassword(user)
 	Chef::Log::info("set_nopw: user #{user}")
 	Chef::Log::info("set_nopw: smbuser.nopassword is #{@smbuser.nopassword}")
+	unless @smbuser.nopassword
+		execute "setting password for #{user} to null" do
+			command "smbpasswd -a -n #{user}"
+		end
+    new_resource.updated_by_last_action(true)
 end
 
 def set_strpassword(user, pw)
