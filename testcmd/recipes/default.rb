@@ -23,7 +23,7 @@ user = node[:user]
 
 Chef::Log::info pwd
 Chef::Log::info user
-#execute "new smbpasswd of #{pwd}" do
-#	command "(echo #{pwd}; echo #{pwd} ) | smbpasswd -s -a #{user}"
-#	action :run
-#end
+execute "new smbpasswd of #{pwd} for #{user}" do
+	command "(echo #{pwd}; echo #{pwd} ) | smbpasswd -s -a #{user}"
+	action :run
+end
