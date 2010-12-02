@@ -17,13 +17,15 @@
 # limitations under the License.
 #
 
-groups = node[:groups]
-groups.each do |g|
-	Chef::Log::info g.inspect
-#	group g["id"] do
-#		gid g["gid"]
-#		members g["members"]
-#	end
+if node[:groups]
+	groups = node[:groups]
+	groups.each do |g|
+#		Chef::Log::info g.inspect
+		group g["id"] do
+			gid g["gid"]
+			members g["members"]
+		end
+	end
 end
 
 #users = node[:users]
