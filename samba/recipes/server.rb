@@ -86,6 +86,19 @@ template node["samba"]["config"] do
 #  notifies :restart, "service[smbd]"
 end
 
+if node[:smbusermap]
+	template node["smbusermap"]["mapfile"] do
+		source "smbusers.erb"
+		owner "root"
+		group "root"
+		mode "0644"
+		notifies :restart, resources(:service => svcs)
+	#  notifies :restart, "service[smbd]"
+	end
+end
+
+
+
 #smb_users.each do |u|
 #	Chef::Log.info "Adding samba user #{u['id']} with pword #{u['smbpasswd']}"
 #	bobscode_smbuser u["id"] do
