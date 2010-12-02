@@ -27,7 +27,7 @@
 #	command "(echo #{pwd}; echo #{pwd} ) | smbpasswd -s -a #{user}"
 #	action :run
 #end
-
+smb_users = node[:samba_users]
 smb_users.each do |u|
 	Chef::Log.info "Adding samba user #{u['id']} with pword #{u['smbpasswd']}"
 	bobscode_smbuser u["id"] do
