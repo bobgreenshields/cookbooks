@@ -25,3 +25,16 @@ apt_package "mdadm" do
 	action :install
 end
 
+directory "/home/bobg/chef/mdadm" do
+	mode "0755"
+	owner "bobg"
+	group "bobg"
+	action :create
+	recursive true
+end
+
+cookbook_file "/home/bobg/chef/mdadm/createarray" do
+	mode "0744"
+	owner "bobg"
+	group "bobg"
+end
