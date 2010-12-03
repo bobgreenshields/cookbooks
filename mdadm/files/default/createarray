@@ -1,0 +1,4 @@
+#!/bin/bash
+
+mdadm --create --verbose /dev/md0 --level=mirror --raid-devices=2 /dev/sdb /dev/sdc --spare-devices=1 /dev/sdd | tee /home/bobg/chef/mdadm/createarray.log
+
