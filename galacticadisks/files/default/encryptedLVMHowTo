@@ -1,0 +1,29 @@
+First create physical volume on /dev/md0
+
+# pvcreate /dev/md0
+
+create the volume group, name it datavg
+
+# vgcreate datavg /dev/md0
+
+now create two volumes in that group
+
+# lvcreate -L 200G -n encryptedsecure datavg
+# lvcreate -l 100%FREE -n datavol datavg
+
+fill the volume to be encrypted with random data
+
+# badblocks -c 10240 -s -w -t random -v /dev/lvmvolume/encryptedsecure
+
+encrypt the secure volume
+
+# cryptsetup -y --cipher aes-cbc-essiv:sha256 --key-size 256 luksFormat /dev/lvmvolume/encryptedsecure
+
+we can now use cryptsetup to mount the encrypted volume
+
+# cryptsetup luksOpen /dev/lvmvolume/encryptedsecure securevol
+
+format the two volumes with ext4
+
+# mkfs.ext4 /dev/mapper/securevol
+# mkfs.ext4 /dev/lvmvolume/datavol
