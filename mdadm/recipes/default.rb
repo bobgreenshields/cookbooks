@@ -17,9 +17,11 @@
 # limitations under the License.
 #
 
-execute "apt-get update" do
-	action :run
-end
+#execute "apt-get update" do
+#	action :run
+#end
+
+include_recipe "apt::update"
 
 apt_package "mdadm" do
 	action :install
