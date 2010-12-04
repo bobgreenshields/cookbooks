@@ -27,14 +27,19 @@
 #	command "(echo #{pwd}; echo #{pwd} ) | smbpasswd -s -a #{user}"
 #	action :run
 #end
-smb_users = node[:samba_users]
-smb_users.each do |u|
-	Chef::Log.info "Adding samba user #{u['id']} with pword #{u['smbpasswd']}"
-	bobscode_smbuser u["id"] do
-		password u["smbpasswd"]
-		overwrite false
-#		action [:create, :enable]
-		action [:create]
-		provider "bobscode_smbuser"
-	end
+#smb_users = node[:samba_users]
+#smb_users.each do |u|
+#	Chef::Log.info "Adding samba user #{u['id']} with pword #{u['smbpasswd']}"
+#	bobscode_smbuser u["id"] do
+#		password u["smbpasswd"]
+#		overwrite false
+##		action [:create, :enable]
+#		action [:create]
+#		provider "bobscode_smbuser"
+#	end
+#end
+
+bobscode_module "dm-crypt" do
+	action :install
+	provider "bobscode_module"
 end
