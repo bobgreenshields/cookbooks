@@ -24,3 +24,18 @@ apt_package "lvm2" do
 	action :install
 end
 
+
+directory "/home/bobg/chef/lvm" do
+	mode "0755"
+	owner "bobg"
+	group "bobg"
+	action :create
+	recursive true
+end
+
+cookbook_file "/home/bobg/chef/lvm/encrypytedLVMHowTo" do
+	source "encrypytedLVMHowTo"
+	mode "0744"
+	owner "bobg"
+	group "bobg"
+end

@@ -36,6 +36,7 @@ directory "/home/bobg/chef/mdadm" do
 end
 
 cookbook_file "/home/bobg/chef/mdadm/createarray" do
+	source "createarray"
 	mode "0744"
 	owner "bobg"
 	group "bobg"
