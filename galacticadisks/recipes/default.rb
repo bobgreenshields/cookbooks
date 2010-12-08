@@ -33,8 +33,8 @@ directory "/home/bobg/chef/lvm" do
 	recursive true
 end
 
-cookbook_file "/home/bobg/chef/lvm/encrypytedLVMHowTo" do
-	source "encrypytedLVMHowTo"
+cookbook_file "/home/bobg/chef/lvm/encryptedLVMHowTo" do
+	source "encryptedLVMHowTo"
 	mode "0744"
 	owner "bobg"
 	group "bobg"
