@@ -18,14 +18,21 @@
 #
 
 include_recipe "apt::update"
+# luks installs cryptsetup
 include_recipe "luks"
 
-%w(cryptsetup lvm2).each do |p| 
-	apt_package p do
-		action :install
-	end
+apt_package "lvm2" do
+	action :install
 end
 
+%w(data secure).each do |dir|
+	directory "/mnt/#{dir}" do
+		mode "0755"
+		owner "bobg"
+		group "bobg"
+		action :create
+	end
+end
 
 directory "/home/bobg/chef/lvm" do
 	mode "0755"
@@ -41,3 +48,4 @@ cookbook_file "/home/bobg/chef/lvm/encryptedLVMHowTo" do
 	owner "bobg"
 	group "bobg"
 end
+

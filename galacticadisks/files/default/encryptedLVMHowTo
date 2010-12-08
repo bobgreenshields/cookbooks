@@ -42,13 +42,13 @@ fill the volume to be encrypted with random data
 
 encrypt the secure volume
 
-# cryptsetup -y --cipher aes-cbc-essiv:sha256 --key-size 256 luksFormat /dev/mapper/datavg-encryptedsecure
+# sudo cryptsetup -y --cipher aes-cbc-essiv:sha256 --key-size 256 luksFormat /dev/mapper/datavg-encryptedsecure
 
 we can now use cryptsetup to mount the encrypted volume
 
-# cryptsetup luksOpen /dev/mapper/datavg-encryptedsecure securevol
+# sudo cryptsetup luksOpen /dev/mapper/datavg-encryptedsecure securevol
 
 format the two volumes with ext4
 
-# mkfs.ext4 /dev/mapper/securevol
-# mkfs.ext4 /dev/lvmvolume/datavol
+# sudo mkfs.ext4 /dev/mapper/securevol
+# sudo mkfs.ext4 /dev/mapper/datavg-datavol
