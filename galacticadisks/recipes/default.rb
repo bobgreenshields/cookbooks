@@ -20,8 +20,10 @@
 include_recipe "apt::update"
 include_recipe "luks"
 
-apt_package "lvm2" do
-	action :install
+%w(cryptsetup lvm2).each |p| do
+	apt_package p do
+		action :install
+	end
 end
 
 
