@@ -52,3 +52,23 @@ format the two volumes with ext4
 
 # sudo mkfs.ext4 /dev/mapper/securevol
 # sudo mkfs.ext4 /dev/mapper/datavg-datavol
+
+Edit /etc/crypttab (using sudo), adding
+
+securevol /dev/mapper/datavg-encryptedsecure none luks,retry=2
+
+Edit /etc/fstab (using sudo), adding
+
+/dev/mapper/securevol /mnt/secure ext4 defaults 0 2
+/dev/mapper/datavg-datavol /mnt/data ext4 defaults 0 2
+
+
+Edit /etc/initramfs-tools/modules (using sudo), adding
+
+aes-i586
+dm-crypt
+sha256
+
+then update your initrd
+
+#  sudo update-initramfs -k all -c
