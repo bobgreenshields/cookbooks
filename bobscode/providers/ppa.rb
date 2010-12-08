@@ -22,7 +22,7 @@ end
 def load_current_resource
 #  @smbuser = Chef::Resource::SambaUser.new(new_resource.name)
   @ppa = Chef::Resource::BobscodePpa.new(new_resource.name)
-  sources_file = File.join(sources_dir, "#{new_resource.name}-ppa-#{node[:lsb][:codename]}.list"
+  sources_file = File.join(sources_dir, "#{new_resource.name}-ppa-#{node[:lsb][:codename]}.list")
   exists = File.exists? sources_file
   @ppa.exists(exists)
 end
