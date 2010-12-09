@@ -66,6 +66,10 @@ you can mount anything in /etc/fstab without a reboot with
 
 # sudo mount -a
 
+you can list mounts with
+
+# sudo mount
+
 Edit /etc/initramfs-tools/modules (using sudo), adding
 
 aes-i586
