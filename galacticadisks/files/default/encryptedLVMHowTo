@@ -62,6 +62,9 @@ Edit /etc/fstab (using sudo), adding
 /dev/mapper/securevol /mnt/secure ext4 defaults 0 2
 /dev/mapper/datavg-datavol /mnt/data ext4 defaults 0 2
 
+you can mount anything in /etc/fstab without a reboot with
+
+# sudo mount -a
 
 Edit /etc/initramfs-tools/modules (using sudo), adding
 
