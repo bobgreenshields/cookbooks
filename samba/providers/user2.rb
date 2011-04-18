@@ -22,18 +22,37 @@ require 'chef/mixin/language'
 include Chef::Mixin::ShellOut
 
 action :create do
-  unless @smbuser.exists
-    pw = new_resource.password
-    execute "Create #{new_resource.name}" do
-      command "(echo -ne '#{pw}\n#{pw}\n' | smbpasswd -s -a #{new_resource.name}"
+  if @smbuser.exists
+    execute "Delete samba user #{new_resource.name}" do
+      command "smbpasswd -x #{new_resource.name}"
     end
-    new_resource.updated_by_last_action(true)
   end
+	pw = new_resource.password
+	if pw.length = 0
+		execute "Create samba user np #{new_resource.name}" do
+			createnpcmd = "smbpasswd -a -n #{new_resource.name} && "
+			createnpcmd << "smbpasswd -e -n #{new_resource.name} && "
+			createnpcmd << "smbpasswd -n #{new_resource.name}"
+			command  createnpcmd
+		end
+	else
+		execute "Create samba user #{new_resource.name}" do
+			command "(echo -ne '#{pw}\n#{pw}\n' | smbpasswd -s -a #{new_resource.name}"
+		end
+	end
+	new_resource.updated_by_last_action(true)
+#  unless @smbuser.exists
+#    pw = new_resource.password
+#    execute "Create #{new_resource.name}" do
+#      command "(echo -ne '#{pw}\n#{pw}\n' | smbpasswd -s -a #{new_resource.name}"
+#    end
+#    new_resource.updated_by_last_action(true)
+#  end
 end
 
 action :enable do
   if @smbuser.disabled
-    execute "Enable #{new_resource.name}" do
+    execute "Enable samba user #{new_resource.name}" do
       command "smbpasswd -e #{new_resource.name}"
     end
     new_resource.updated_by_last_action(true)
@@ -42,7 +61,7 @@ end
 
 action :delete do
   if @smbuser.exists
-    execute "Delete #{new_resource.name}" do
+    execute "Delete samba user #{new_resource.name}" do
       command "smbpasswd -x #{new_resource.name}"
     end
     new_resource.updated_by_last_action(true)

@@ -74,7 +74,10 @@ end
 
 svcs = ["smbd", "nmbd"]
 
-
+execute "Restart samba" do
+	command "restart smbd"
+	action :nothing
+end
 
 template node["samba"]["config"] do
   source "smb.conf.erb"
@@ -82,7 +85,8 @@ template node["samba"]["config"] do
   group "root"
   mode "0644"
   variables :shares => smb_share_meta
-  notifies :restart, resources(:service => svcs)
+  notifies :run, resources(:execute => "Restart samba")
+#  notifies :restart, resources(:service => svcs)
 #  notifies :restart, "service[smbd]"
 end
 
@@ -92,7 +96,8 @@ if node[:smbusermap]
 		owner "root"
 		group "root"
 		mode "0644"
-		notifies :restart, resources(:service => svcs)
+		notifies :run, resources(:execute => "Restart samba")
+#		notifies :restart, resources(:service => svcs)
 	#  notifies :restart, "service[smbd]"
 	end
 end
@@ -113,7 +118,8 @@ if smb_users
   smb_users.each do |u|
     samba_user u["id"] do
       password u["smbpasswd"]
-      action [:create, :enable]
+      action [:create]
+#      action [:create, :enable]
     end
   end
 end
