@@ -75,8 +75,14 @@ def load_current_resource
 
   Chef::Log.debug("Checking for smbuser #{new_resource.name}")
   u = shell_out("pdbedit -Lv -u #{new_resource.name}")
-  exists = u.stdout.include?(new_resource.name)
-  disabled = u.stdout.include?("Account Flags.*[D")
-  @smbuser.exists(exists)
-  @smbuser.disabled(disabled)
+  pdb = u.stdout
+  mexists = /username:\s*#{new_resource.name}$/
+  mflags = /Flags:\s*\[(.*)\]/
+  @smbuser.exists(mexists.match(pdb) ? true : false)
+  flags = mflags.match(pdb)
+  @smbuser.disabled((flags and flags[1].include?("D")) ? true : false)
+#  exists = u.stdout.include?(new_resource.name)
+#  disabled = u.stdout.include?("Account Flags.*[D")
+#  @smbuser.exists(exists)
+#  @smbuser.disabled(disabled)
 end
