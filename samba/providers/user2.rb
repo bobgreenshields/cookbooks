@@ -22,6 +22,7 @@ require 'chef/mixin/language'
 include Chef::Mixin::ShellOut
 
 action :create do
+  Chef::Log.debug("user2::create #{new_resource.name} exists #{@smbuser.exists}")
   if @smbuser.exists
     execute "Delete samba user #{new_resource.name}" do
       command "smbpasswd -x #{new_resource.name}"
