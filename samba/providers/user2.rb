@@ -37,7 +37,7 @@ action :create do
 		end
 	else
 		execute "Create samba user #{new_resource.name}" do
-			command "(echo -ne '#{pw}\n#{pw}\n' | smbpasswd -s -a #{new_resource.name}"
+			command "(echo -ne '#{pw}\n#{pw}\n' | smbpasswd -s -a #{new_resource.name})"
 		end
 	end
 	new_resource.updated_by_last_action(true)
