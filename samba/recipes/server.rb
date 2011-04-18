@@ -117,7 +117,7 @@ end
 if smb_users
   smb_users.each do |u|
     samba_user u["id"] do
-    	provider :user2
+    	provider "samba_user2"
       password u["smbpasswd"]
       action [:create]
 #      action [:create, :enable]
