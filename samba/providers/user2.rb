@@ -28,7 +28,7 @@ action :create do
     end
   end
 	pw = new_resource.password
-	if pw.length = 0
+	if pw.length == 0
 		execute "Create samba user np #{new_resource.name}" do
 			createnpcmd = "smbpasswd -a -n #{new_resource.name} && "
 			createnpcmd << "smbpasswd -e -n #{new_resource.name} && "
