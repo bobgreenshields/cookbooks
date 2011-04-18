@@ -62,17 +62,17 @@ package value_for_platform(
 #  end
 #end
 
-service "smbd" do
-	supports :status => true, :restart => true, :reload => true
-	action [:enable, :start]
-end
-
-service "nmbd" do
-	supports :status => true, :restart => true, :reload => true
-	action [:enable, :start]
-end
-
-svcs = ["smbd", "nmbd"]
+#service "smbd" do
+#	supports :status => true, :restart => true, :reload => true
+#	action [:enable, :start]
+#end
+#
+#service "nmbd" do
+#	supports :status => true, :restart => true, :reload => true
+#	action [:enable, :start]
+#end
+#
+#svcs = ["smbd", "nmbd"]
 
 execute "Restart samba" do
 	command "restart smbd"
