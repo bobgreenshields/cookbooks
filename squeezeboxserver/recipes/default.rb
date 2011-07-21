@@ -18,7 +18,7 @@
 #
 
 
-	depends = %w(mysql-server libmysqlclient-dev mysql-client)
+	depends = %w(mysql-server-5.1 libmysqlclient16-dev mysql-client-5.1)
 
 	depends.each do |p|
 		package p do
