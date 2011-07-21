@@ -18,7 +18,13 @@
 #
 
 
+	depends = %w(mysql-server libmysqlclient-dev mysql-client)
 
+	depends.each do |p|
+		package p do
+			action :install
+		end
+	end
 
 	dpkg_package "/var/tmp/squeezeboxserver_7.5.5_all.deb" do
 		action :install
