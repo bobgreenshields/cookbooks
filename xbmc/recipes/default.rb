@@ -57,12 +57,12 @@ end
 bobscode_repository "lucid-bleed" do
 	action :add
 	provider "bobscode_ppa"
-	notifies :run, "execute[update-apt]", :immediately
+	notifies :run, "execute[update-apt]"
 end
 
-#apt_package "vdpau-va-driver" do
-#	action :install
-#end
+apt_package "vdpau-va-driver" do
+	action :install
+end
 
 # begin xbmc install by checking dependancies
 prepack = %w(python-software-properties pkg-config)
@@ -75,7 +75,7 @@ end
 bobscode_repository "team-xbmc" do
 	action :add
 	provider "bobscode_ppa"
-	notifies :run, "execute[update-apt]", :immediately
+	notifies :run, "execute[update-apt]"
 end
 
 ##bobscode_repository "dropbox" do
