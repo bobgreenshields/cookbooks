@@ -44,11 +44,8 @@ apt_package "nvidia-current" do
 end
 
 # for nvidia hardware acceleration
-nvaccelpack = %w(libvdpau1 vdpau-va-driver)
-nvaccelpack.each do |p|
-	apt_package p do
-		action :install
-	end
+apt_package libvdpau1 do
+	action :install
 end
 
 prepack = %w(python-software-properties pkg-config)
