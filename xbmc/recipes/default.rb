@@ -55,9 +55,16 @@ prepack.each do |p|
 	end
 end
 
+execute "update-apt" do
+	command "apt-get update"
+	user "root"
+	action :nothing
+end
+
 bobscode_repository "team-xbmc" do
 	action :add
 	provider "bobscode_ppa"
+	notifies :run, "execute[update-apt]", :immediately
 end
 
 ##bobscode_repository "dropbox" do
@@ -66,11 +73,6 @@ end
 ##	keyserver "pgp.mit.edu"
 ##	provider "bobscode_repository"
 ##end
-
-execute "apt-get update" do
-	user "root"
-	action :run
-end
 
 xbmc_pack = %w(xbmc xbmc-standalone)
 xbmc_pack.each do |x|
