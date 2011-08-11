@@ -38,6 +38,12 @@ directory "/home/xbmc" do
 	action :create
 end
 
+execute "update-apt" do
+	command "apt-get update"
+	user "root"
+	action :nothing
+end
+
 # for nvidia drivers
 apt_package "nvidia-current" do
 	action :install
@@ -48,17 +54,22 @@ apt_package "libvdpau1" do
 	action :install
 end
 
+bobscode_repository "lucid-bleed" do
+	action :add
+	provider "bobscode_ppa"
+	notifies :run, "execute[update-apt]", :immediately
+end
+
+#apt_package "vdpau-va-driver" do
+#	action :install
+#end
+
+# begin xbmc install by checking dependancies
 prepack = %w(python-software-properties pkg-config)
 prepack.each do |p|
 	apt_package p do
 		action :install
 	end
-end
-
-execute "update-apt" do
-	command "apt-get update"
-	user "root"
-	action :nothing
 end
 
 bobscode_repository "team-xbmc" do
