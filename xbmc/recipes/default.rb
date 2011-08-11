@@ -31,6 +31,11 @@ user "xbmc" do
 	password "$1$L5NNsQs9$x.1yp5..GEtZw45xljSRw0"
 end
 
+group "video" do
+	members ['bobg', 'xbmc']
+	append true
+end
+
 directory "/home/xbmc" do
 	owner "xbmc"
 	group "users"
