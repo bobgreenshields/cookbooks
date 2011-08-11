@@ -39,10 +39,10 @@ directory "/home/xbmc" do
 end
 
 # for nvidia drivers
-#apt_package "nvidia-current" do
-#	action :install
-#end
-#
+apt_package "nvidia-current" do
+	action :install
+end
+
 #prepack = %w(python-software-properties pkg-config)
 #prepack.each do |p|
 #	apt_package p do
