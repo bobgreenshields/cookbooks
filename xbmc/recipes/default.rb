@@ -44,7 +44,7 @@ apt_package "nvidia-current" do
 end
 
 # for nvidia hardware acceleration
-apt_package libvdpau1 do
+apt_package "libvdpau1" do
 	action :install
 end
 
