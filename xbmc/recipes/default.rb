@@ -18,9 +18,9 @@
 #
 
 #use this to enable passwd for user xbmc
-#gem_package "libshadow" do
-#	action :install
-#end
+gem_package "libshadow" do
+	action :install
+end
 
 user "xbmc" do
 	comment "user for xbmc"
@@ -28,7 +28,7 @@ user "xbmc" do
 	gid "users"
 	home "/home/xbmc"
 	shell "/bin/bash"
-#	password "$1$L5NNsQs9$x.1yp5..GEtZw45xljSRw0"
+	password "$1$L5NNsQs9$x.1yp5..GEtZw45xljSRw0"
 end
 
 directory "/home/xbmc" do
