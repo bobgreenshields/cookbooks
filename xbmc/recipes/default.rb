@@ -50,11 +50,11 @@ prepack.each do |p|
 	end
 end
 
-#bobscode_repository "team-xbmc" do
-#	action :add
-#	provider "bobscode_ppa"
-#end
-#
+bobscode_repository "team-xbmc" do
+	action :add
+	provider "bobscode_ppa"
+end
+
 ##bobscode_repository "dropbox" do
 ##	action :add
 ##	key "5044912E"
