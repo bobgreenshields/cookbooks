@@ -43,13 +43,13 @@ apt_package "nvidia-current" do
 	action :install
 end
 
-#prepack = %w(python-software-properties pkg-config)
-#prepack.each do |p|
-#	apt_package p do
-#		action :install
-#	end
-#end
-#
+prepack = %w(python-software-properties pkg-config)
+prepack.each do |p|
+	apt_package p do
+		action :install
+	end
+end
+
 #bobscode_repository "team-xbmc" do
 #	action :add
 #	provider "bobscode_ppa"
