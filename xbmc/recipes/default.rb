@@ -61,16 +61,16 @@ end
 ##	keyserver "pgp.mit.edu"
 ##	provider "bobscode_repository"
 ##end
-#
-#execute "apt-get update" do
-#	user "root"
-#	action :run
-#end
-#
-#xbmc_pack = %w(xbmc xbmc-standalone)
-#xbmc_pack.each do |x|
-#	apt_package x do
-#		action :install
-#	end
-#end
+
+execute "apt-get update" do
+	user "root"
+	action :run
+end
+
+xbmc_pack = %w(xbmc xbmc-standalone)
+xbmc_pack.each do |x|
+	apt_package x do
+		action :install
+	end
+end
 
