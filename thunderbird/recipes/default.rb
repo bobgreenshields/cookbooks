@@ -23,3 +23,12 @@
 	end
 end
 
+directory "/home/bobg/tb-addons" do
+	owner "bobg"
+	group "bobg"
+	mode "0755"
+	action :create
+end
+
+addons = %w(exteditor_v100.xpi nostalgy-0.2.27-tb+sm.xpi
+	zindus-0.8.33-tb+sm.xpi)
