@@ -23,7 +23,9 @@
 	end
 end
 
-directory "/home/bobg/tb-addons" do
+addon_dir = "/home/bobg/tb-addons"
+
+directory addon_dir do
 	owner "bobg"
 	group "bobg"
 	mode "0755"
@@ -32,3 +34,13 @@ end
 
 addons = %w(exteditor_v100.xpi nostalgy-0.2.27-tb+sm.xpi
 	zindus-0.8.33-tb+sm.xpi)
+
+addons.each do |a|
+	cookbook_file "#{addon_dir}/#{a}" do
+		source a
+		mode "0755"
+		owner "bobg"
+		group "bobg"
+		action :create_if_missing
+	end
+end
