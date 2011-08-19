@@ -17,6 +17,7 @@
 # limitations under the License.
 #
 # need to make sure partners repository is available
+# need to find how to accept licence in jre package
 #
 packs = %w(sun-java6-jre sun-java6-plugin sun-java6-fonts)
 
