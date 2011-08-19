@@ -18,9 +18,8 @@
 #
 
 if (node[:platform] == "ubuntu") and (node[:platform_version].to_f >= 10.04) then
-  execute "remove open source video driver" do
-    command "apt-get --purge remove xserver-xorg-video-nouveau"
-    user "root"
+  apt_package "xserver-xorg-video-nouveau" do
+    action :purge
   end
 
   execute "nvidia-xconfig" do
