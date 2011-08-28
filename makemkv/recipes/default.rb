@@ -34,14 +34,19 @@ directory "~/src/makemkv" do
   action :create
 end
 
-filetypes = %w(bin oss)
 mkvfiles = %w(bin oss).inject([]) do |res, ft|
-  res << "makemkv_v#{VERSION}_#{ft}.tar.gz"
+  res << "makemkv_v#{VERSION}_#{ft}"
 end
 
 mkvfiles.each do |f|
-  cookbook_file "~/src/makemkv/#{f}" do
-    source f
+  archive = "#{f}.tar.gz"
+  cookbook_file "~/src/makemkv/#{archive}" do
+    source archive
     action :create_if_missing
+  end
+
+  execute "tar xzf #{archive}" do
+    cwd "~/src/makemkv"
+    creates "~/src/makemkv/#{f}"
   end
 end
