@@ -16,6 +16,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+VERSION = "1.6.14"
+
 depends = %w(build-essential libc6-dev libssl-dev libgl1-mesa-dev libqt4-dev)
 
+depends.each do |p|
+  apt_package p do
+    action :install
+  end
+end
 
+directory "~/src" do
+  action :create
+end
+
+directory "~/src/makemkv" do
+  action :create
+end
+
+filetypes = %w(bin oss)
+mkvfiles = %w(bin oss).inject([]) do |res, ft|
+  res << "makemkv_v#{VERSION}_#{ft}.tar.gz"
+end
+
+mkvfiles.each do |f|
+  cookbook_file "~/src/makemkv/#{f}" do
+    source f
+    action :create_if_missing
+  end
+end
