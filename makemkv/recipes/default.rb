@@ -26,6 +26,7 @@ depends.each do |p|
   end
 end
 
+# change this to the /tmp directory
 directory "~/src" do
   action :create
 end
