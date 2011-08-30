@@ -34,7 +34,7 @@ directory "~/src/makemkv" do
   action :create
 end
 
-mkvfiles = %w(bin oss).inject([]) do |res, ft|
+mkvfiles = %w(oss bin).inject([]) do |res, ft|
   res << "makemkv_v#{VERSION}_#{ft}"
 end
 
