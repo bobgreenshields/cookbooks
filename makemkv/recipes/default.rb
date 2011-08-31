@@ -26,12 +26,10 @@ depends.each do |p|
   end
 end
 
-# change this to the /tmp directory
-directory "~/src" do
-  action :create
-end
+SRC_DIR = "/tmp/makemkv"
 
-directory "~/src/makemkv" do
+# change this to the /tmp directory
+directory SRC_DIR do
   action :create
 end
 
@@ -41,13 +39,13 @@ end
 
 mkvfiles.each do |f|
   archive = "#{f}.tar.gz"
-  cookbook_file "~/src/makemkv/#{archive}" do
+  cookbook_file "#{SRC_DIR}/#{archive}" do
     source archive
     action :create_if_missing
   end
 
   execute "tar xzf #{archive}" do
-    cwd "~/src/makemkv"
-    creates "~/src/makemkv/#{f}"
+    cwd SRC_DIR
+    creates "#{SRC_DIR}/#{f}"
   end
 end
