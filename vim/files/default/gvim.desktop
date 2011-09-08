@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Exec=gvim %U
+Name=gvim
+GenericName=Text Editor
+Comment=Graphically edit text files
+Icon=/usr/share/pixmaps/gvim.png
+Categories=GNOME;GTK;Utility;TextEditor;
