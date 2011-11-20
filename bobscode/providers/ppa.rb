@@ -1,4 +1,3 @@
-sources_dir = '/etc/apt/sources.list.d'
 #codename = node[:lsb][:codename]
 
 action :add do
@@ -22,7 +21,8 @@ end
 def load_current_resource
 #  @smbuser = Chef::Resource::SambaUser.new(new_resource.name)
   @ppa = Chef::Resource::BobscodePpa.new(new_resource.name)
-  sources_file = File.join(sources_dir, "#{new_resource.name}-ppa-#{node[:lsb][:codename]}.list")
-  exists = File.exists? sources_file
+	sources_dir = '/etc/apt/sources.list.d'
+  sources_file = ::File.join(sources_dir, "#{new_resource.name}-ppa-#{node[:lsb][:codename]}.list")
+  exists = ::File.exists? sources_file
   @ppa.exists(exists)
 end

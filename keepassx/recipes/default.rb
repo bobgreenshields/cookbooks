@@ -17,19 +17,33 @@
 # limitations under the License.
 #
 
-repository = 'keepassx'
-sources_dir = '/etc/apt/sources.list.d'
-codename = node[:lsb][:codename]
+#repository = 'keepassx'
+#sources_dir = '/etc/apt/sources.list.d'
+#codename = node[:lsb][:codename]
 
-Chef::Log.info("Codename is #{codename}")
+#Chef::Log.info("Codename is #{codename}")
 
-execute "add #{repository} repository" do
+#execute "add #{repository} repository" do
+#	user "root"
+#	command "add-apt-repository ppa:#{repository}/ppa"
+#	creates File.join(sources_dir, "#{repository}-ppa-#{codename}.list")
+#end
+
+#execute "apt-get update" do
+#end
+
+execute "update-apt" do
+	command "apt-get update"
 	user "root"
-	command "add-apt-repository ppa:#{repository}/ppa"
-	creates File.join(sources_dir, "#{repository}-ppa-#{codename}.list")
+	action :nothing
 end
 
-execute "apt-get update" do
+if (node[:platform] == "ubuntu") and (node[:platform_version].to_f < 11.04) then
+  bobscode_repository "keepassx" do
+  	action :add
+  	provider "bobscode_ppa"
+  	notifies :run, "execute[update-apt]"
+  end
 end
 
 %w{keepassx}.each do |p|
