@@ -17,10 +17,17 @@
 # limitations under the License.
 #
 
+source_dir = "#{node['site-ruby']}/ruplite"
 
-directory "#{node['site-ruby']}/ruplite" do
+directory source_dir do
 	owner "root"
 	group "root"
 	mode "0755"
 	action :create
+end
+
+git source_dir do
+	repository "git://github.com/bobgreenshields/ruplite.git"
+	reference "master"
+	action :sync
 end
