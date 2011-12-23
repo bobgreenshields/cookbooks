@@ -31,3 +31,7 @@ git source_dir do
 	reference "master"
 	action :sync
 end
+
+link "#{node['site-ruby']}/ruplite.rb" do
+	to "#{source_dir}/lib/ruplite.rb"
+end
