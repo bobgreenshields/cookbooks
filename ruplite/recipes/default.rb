@@ -17,6 +17,17 @@
 # limitations under the License.
 #
 
+# make sure we have github as a rubygems source
+execute 'gem sources -a http://gems.github.com' do
+	user "root"
+	not_if { `gem sources` =~ /gems.github.com/ }
+end
+
+#install open4 gem
+gem_package "open4" do
+	action :install
+end
+
 source_dir = "#{node['site-ruby']}/ruplite"
 
 directory source_dir do
