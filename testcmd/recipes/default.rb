@@ -40,6 +40,8 @@
 #end
 
 bobscode_module "dm-crypt" do
+#bobscode_module "dm_crypt" do
+#bobscode_module "blurby-crypt" do
 	action :install
 	provider "bobscode_module"
 end
