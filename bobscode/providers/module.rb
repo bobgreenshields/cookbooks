@@ -31,6 +31,8 @@ action :install do
 #      command "modprobe #{new_resource.name}"
 #    end
     new_resource.updated_by_last_action(true)
+  else
+		Chef::Log.info("install: NO modprobe on #{new_resource.name}")
   end
 end
 
@@ -42,13 +44,15 @@ def load_current_resource
 #  Chef::Log.debug("Checking for module #{new_resource.name}")
   Chef::Log.info("Checking for module #{new_resource.name}")
 #  u = shell_out("pdbedit -Lv -u #{new_resource.name}")
-  u = shell_out("modinfo #{new_resource.name}")
-  info = u.stdout.split(':')
+#  u = shell_out("modinfo #{new_resource.name}")
+#  info = u.stdout.split(':')
+  u = shell_out("lsmod").stdout
+  exists = u =~ /#{new_resource.name}/
   Chef::Log.info("info[0] is #{info[0]}")
 #  Chef::Log.info("info[1] is #{info[1]}")
 #  Chef::Log.info("info[2] is #{info[2]}")
 #  Chef::Log.info("info[3] is #{info[3]}")
 #  Chef::Log.info("info[4] is #{info[4]}")
-  exists = !(info[0] == 'ERROR')
+#  exists = !(info[0] == 'ERROR')
   @module.exists(exists)
 end
