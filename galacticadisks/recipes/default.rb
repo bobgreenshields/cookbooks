@@ -44,7 +44,7 @@ cookbook_file "/etc/initramfs-tools/modules" do
 	notifies :run, resources(:execute => "regenerate initrd")
 end
 
-%w(data secure).each do |dir|
+%w(data secure media).each do |dir|
 	directory "/mnt/#{dir}" do
 		mode "0755"
 		owner "bobg"
@@ -55,6 +55,20 @@ end
 
 mount "/mnt/secure" do
 	device "/dev/mapper/securevol"
+	fstype "ext4"
+	action :enable
+end
+
+mount "/mnt/data" do
+	device  node[:device_by_uuid][:datavol]
+	device_type :uuid
+	fstype "ext4"
+	action :enable
+end
+
+mount "/mnt/media" do
+	device  node[:device_by_uuid][:media]
+	device_type :uuid
 	fstype "ext4"
 	action :enable
 end
