@@ -4,6 +4,7 @@ First create physical volume on /dev/md0
 
 remember your friends are
 
+# sudo blkid
 # sudo fdisk -l
 # sudo pvscan
 # sudo pvdisplay
