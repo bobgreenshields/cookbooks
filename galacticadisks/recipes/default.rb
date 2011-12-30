@@ -18,12 +18,10 @@
 #
 
 include_recipe "apt::update"
+include_recipe "lvm"
 # luks installs cryptsetup
 include_recipe "luks"
 
-apt_package "lvm2" do
-	action :install
-end
 
 %w(data secure).each do |dir|
 	directory "/mnt/#{dir}" do
