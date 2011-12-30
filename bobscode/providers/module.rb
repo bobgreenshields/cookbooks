@@ -23,36 +23,30 @@ include Chef::Mixin::ShellOut
 
 
 action :install do
-	Chef::Log.info("install: module.exists is #{@module.exists}")
-  Chef::Log.info("install: new_resource.name is #{new_resource.name}")
-	unless @module.exists
-		Chef::Log.info("install: execute modprobe on #{new_resource.name}")
-#    execute "Install module #{new_resource.name}" do
-#      command "modprobe #{new_resource.name}"
-#    end
+	if @module.exists
+		Chef::Log.info("install: module #{new_resource.name} is already loaded")
+#		Chef::Log.info("install: NO modprobe on #{new_resource.name}")
+	else
+		Chef::Log.info("install: module #{new_resource.name} is not loaded")
+#		Chef::Log.info("install: execute modprobe on #{new_resource.name}")
+    execute "Install module #{new_resource.name}" do
+      command "modprobe #{new_resource.name}"
+      user "root"
+    end
     new_resource.updated_by_last_action(true)
-  else
-		Chef::Log.info("install: NO modprobe on #{new_resource.name}")
-  end
+	end
 end
 
 
 def load_current_resource
-#  @smbuser = Chef::Resource::SambaUser.new(new_resource.name)
   @module = Chef::Resource::BobscodeModule.new(new_resource.name)
-
-#  Chef::Log.debug("Checking for module #{new_resource.name}")
-  Chef::Log.info("Checking for module #{new_resource.name}")
-#  u = shell_out("pdbedit -Lv -u #{new_resource.name}")
-#  u = shell_out("modinfo #{new_resource.name}")
-#  info = u.stdout.split(':')
-  u = shell_out("lsmod").stdout
-  exists = u =~ /#{new_resource.name}/
-  Chef::Log.info("info[0] is #{info[0]}")
-#  Chef::Log.info("info[1] is #{info[1]}")
-#  Chef::Log.info("info[2] is #{info[2]}")
-#  Chef::Log.info("info[3] is #{info[3]}")
-#  Chef::Log.info("info[4] is #{info[4]}")
-#  exists = !(info[0] == 'ERROR')
-  @module.exists(exists)
+#  Chef::Log.info("Checking for module #{new_resource.name}")
+  exists = shell_out("lsmod").stdout =~ /^#{new_resource.name}/
+# try substituting dashes for underscores
+	testname = new_resource.name.gsub("-", "_")
+	exists ||= shell_out("lsmod").stdout =~ /^#{testname}/
+# try substituting underscores for dashes 
+	testname = new_resource.name.gsub("_", "-")
+	exists ||= shell_out("lsmod").stdout =~ /^#{testname}/
+  @module.exists(exists ? true : false)
 end
