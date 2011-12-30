@@ -23,12 +23,13 @@ include Chef::Mixin::ShellOut
 
 
 action :install do
-	Chef::Log::info("install: module.exists is #{@module.exists}")
+	Chef::Log.info("install: module.exists is #{@module.exists}")
   Chef::Log.info("install: new_resource.name is #{new_resource.name}")
 	unless @module.exists
-    execute "Install module #{new_resource.name}" do
-      command "modprobe #{new_resource.name}"
-    end
+		Chef::Log.info("install: execute modprobe on #{new_resource.name}")
+#    execute "Install module #{new_resource.name}" do
+#      command "modprobe #{new_resource.name}"
+#    end
     new_resource.updated_by_last_action(true)
   end
 end
@@ -38,7 +39,8 @@ def load_current_resource
 #  @smbuser = Chef::Resource::SambaUser.new(new_resource.name)
   @module = Chef::Resource::BobscodeModule.new(new_resource.name)
 
-  Chef::Log.debug("Checking for module #{new_resource.name}")
+#  Chef::Log.debug("Checking for module #{new_resource.name}")
+  Chef::Log.info("Checking for module #{new_resource.name}")
 #  u = shell_out("pdbedit -Lv -u #{new_resource.name}")
   u = shell_out("modinfo #{new_resource.name}")
   info = u.stdout.split(':')
