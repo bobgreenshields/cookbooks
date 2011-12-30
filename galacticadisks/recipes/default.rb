@@ -18,6 +18,7 @@
 #
 
 include_recipe "apt::update"
+include_recipe "mdadm"
 include_recipe "lvm"
 # luks installs cryptsetup
 include_recipe "luks"
