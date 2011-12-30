@@ -23,6 +23,26 @@ include_recipe "lvm"
 # luks installs cryptsetup
 include_recipe "luks"
 
+cookbook_file "/etc/crypttab" do
+	source "crypttab"
+	mode "0644"
+	owner "root"
+	group "root"
+end
+
+execute "regenerate initrd" do
+	command "update-initramfs -k all -c"
+	user "root"
+	action :nothing
+end
+
+cookbook_file "/etc/initramfs-tools/modules" do
+	source "modules"
+	mode "0644"
+	owner "root"
+	group "root"
+	notifies :run, resources(:execute => "regenerate initrd")
+end
 
 %w(data secure).each do |dir|
 	directory "/mnt/#{dir}" do
@@ -31,6 +51,12 @@ include_recipe "luks"
 		group "bobg"
 		action :create
 	end
+end
+
+mount "/mnt/secure" do
+	device "/dev/mapper/securevol"
+	fstype "ext4"
+	action :enable
 end
 
 directory "/home/bobg/chef/lvm" do

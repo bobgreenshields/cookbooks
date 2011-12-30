@@ -1,0 +1,4 @@
+# <target name>	<source device>		<key file>	<options>
+cryptswap1 /dev/sda5 /dev/urandom swap,cipher=aes-cbc-essiv:sha256
+securevol /dev/mapper/datavg-encryptedsecure none luks,retry=1
+#securevol /dev/mapper/datavg-encryptedsecure none luks,tries=4
