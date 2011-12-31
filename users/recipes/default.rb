@@ -1,7 +1,6 @@
-apt_package "libshadow-ruby1.8" do
+gem_package "ruby-shadow" do
 	action :install
 end
-
 
 users = node[:users]
 
