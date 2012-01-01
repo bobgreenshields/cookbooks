@@ -39,9 +39,22 @@
 #	end
 #end
 
-bobscode_module "dm-crypt" do
-#bobscode_module "dm_crypt" do
-#bobscode_module "blurby-crypt" do
-	action :install
-	provider "bobscode_module"
+#bobscode_module "dm-crypt" do
+##bobscode_module "dm_crypt" do
+##bobscode_module "blurby-crypt" do
+#	action :install
+#	provider "bobscode_module"
+#end
+smbu = {"id" => "test", "smbpassword" => ""}
+smb_users = []
+smb_users << smbu
+
+smb_users.each do |u|
+	testcmd_user u["id"] do
+		provider "testcmd_bobuser"
+		password u["smbpassword"]
+		action [:create]
 end
+
+
+
