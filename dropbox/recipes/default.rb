@@ -17,17 +17,20 @@
 # limitations under the License.
 #
 
+execute "update apt for dropbox" do
+	command "apt-get update"
+	user "root"
+	action :nothing
+end
 
-bobscode_repository "dropbox" do
+if (node[:platform] == "ubuntu") and (node[:platform_version].to_f < 11.04) then
+  bobscode_repository "dropbox" do
 	action :add
 	key "5044912E"
 	keyserver "pgp.mit.edu"
 	provider "bobscode_repository"
-end
-
-execute "apt-get update" do
-	user "root"
-	action :run
+  	notifies :run, "execute[update-apt]"
+  end
 end
 
 apt_package "nautilus-dropbox" do
