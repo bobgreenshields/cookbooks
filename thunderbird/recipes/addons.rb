@@ -1,5 +1,5 @@
 
-addon_dir = "/home/bobg/tb-addons"
+addon_dir =  node["thunderbird"]["addon_dir"]
 
 directory addon_dir do
 	owner "bobg"
