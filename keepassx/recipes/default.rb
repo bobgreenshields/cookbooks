@@ -32,7 +32,7 @@
 #execute "apt-get update" do
 #end
 
-execute "update-apt" do
+execute "update apt for keepassx" do
 	command "apt-get update"
 	user "root"
 	action :nothing
