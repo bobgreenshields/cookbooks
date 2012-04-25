@@ -17,8 +17,6 @@
 # limitations under the License.
 #
 
-include_recipe "apt"
-
 %w{vim-doc vim-gnome}.each do |p|
 	package p do
 		action :install
