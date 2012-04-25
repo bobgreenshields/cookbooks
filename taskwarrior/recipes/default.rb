@@ -17,9 +17,16 @@
 # limitations under the License.
 #
 
-if node['platform_version'].to_f >= 10.10
+if (node[:platform] == "ubuntu") and (node[:platform_version].to_f >= 10.10) then
   package "task" do
     action :install
   end
 end
 
+cookbook_file "/home/bobg/.taskrc" do
+  source "taskrc"
+  mode "0644"
+  owner "bobg"
+  group "bobg"
+  action :create_if_missing
+end
