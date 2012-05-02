@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-apt_package "compizconfig-settings-manger" do
+apt_package "compizconfig-settings-manager" do
 	action :install
 end
 
