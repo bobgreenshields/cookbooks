@@ -31,6 +31,8 @@ attribute :distribution, :kind_of => String
 attribute :components, :kind_of => Array, :default => []
 #whether or not to add the repository as a source repo as well
 attribute :deb_src, :default => false
+attribute :repo_desc, :kind_of => String, :default => nil
+attribute :sources_list_filename, :kind_of => String, :default => nil
 attribute :keyserver, :kind_of => String, :default => nil
 attribute :key, :kind_of => String, :default => nil
 attribute :cookbook, :kind_of => String, :default => nil

@@ -76,12 +76,15 @@ action :add do
     end
 
     # build repo file
-    repository = build_repo(new_resource.uri,
+    repository = new_resource.repo_desc || build_repo(new_resource.uri,
                             new_resource.distribution,
                             new_resource.components,
                             new_resource.deb_src)
 
-    repo_file = file "/etc/apt/sources.list.d/#{new_resource.repo_name}-source.list" do
+    sources_filename = new_resource.sources_list_filename ||
+     "#{new_resource.repo_name}-source.list" 
+
+    repo_file = file "/etc/apt/sources.list.d/#{sources_filename}" do
       owner "root"
       group "root"
       mode 0644
