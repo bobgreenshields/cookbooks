@@ -23,4 +23,5 @@ cookbook_file "/etc/pm/sleep.d/20_zenbook" do
   owner "root"
   group "root"
   mode "0755"
+  action :create
 end
