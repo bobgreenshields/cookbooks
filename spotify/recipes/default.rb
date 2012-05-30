@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 apt_repository "spotify" do
-  repo_desc "deb http://repository.spotify.com stable non-free
+  repo_desc "deb http://repository.spotify.com stable non-free"
   sources_list_filename "spotify.com.sources.list"
   keyserver "keyserver.ubuntu.com"
   key "4E9CFF4E"
