@@ -12,7 +12,8 @@ unless node["nfs"]["mounts"].empty?
     mount mount_point do
       device v["device"]
       fstype "nfs"
-      options v["options"]
+      action v["action"] if v.has_key? "action"
+      options v["options"] if v.has_key? "options"
     end # mount
   end # mounts.each
 end # unless
