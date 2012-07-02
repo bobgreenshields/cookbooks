@@ -31,3 +31,4 @@ default["nfs"]["port"]["statd_out"] = 32766
 default["nfs"]["port"]["mountd"] = 32767
 default["nfs"]["port"]["lockd"] = 32768
 default["nfs"]["exports"] = Array.new
+default["nfs"]["mounts"] = Hash.new

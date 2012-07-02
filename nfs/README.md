@@ -39,6 +39,21 @@ To install the NFS components for a client system, simply add nfs to the run_lis
     description "Role applied to all systems"
     run_list => [ "nfs" ]
 
+To mounts nfs shares on the client use the nfs::mounts recipe and overide
+attributes
+
+"nfs": {
+     "mounts": {
+             "/mnt/mail": {
+                        "device": "server:/nfs/mail",
+                        "options": "rw",
+                        "owner": "mailuser",
+                        "group": "mailuser",
+                        "mode": "0770"
+             }
+     }
+}
+
 Then in an nfs_server.rb role that is applied to NFS servers:
 
     name "nfs_server"
