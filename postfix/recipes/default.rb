@@ -29,17 +29,17 @@ template "/etc/postfix/vhosts" do
 end
 
 if node[:postfix].has_key?("smtp_login")
-#	template "/etc/postfix/saslpasswd" do
-#		source "saslpasswd.erb"
-#		mode "0644"
-#		owner "root"
-#		group "root"
-#		variables ({
-#			:smtp_server => node[:postfix][:smtp_server],
-#			:smtp_login => node[:postfix][:smtp_login],
-#			:smtp_password => node[:postfix][:smtp_password]
-#		})
-#	end
+	template "/etc/postfix/saslpasswd" do
+		source "saslpasswd.erb"
+		mode "0644"
+		owner "root"
+		group "root"
+		variables (
+			:smtp_server => node[:postfix][:smtp_server],
+			:smtp_login => node[:postfix][:smtp_login],
+			:smtp_password => node[:postfix][:smtp_password]
+		)
+	end
 end
 
 if not node[:postfix].has_key?("required_mount") or
