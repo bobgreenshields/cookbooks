@@ -30,5 +30,12 @@ end
 
 if node[:postfix].has_key?("required_mount") and
 	Regexp.new(node[:postfix][:required_mount]).match(`mount`)
-	puts "#{node[:postfix][:required_mount]} is mounted"
+
+#	mail_root = node[:postfix][:mail_folder]
+#	folders = %w{cur new tmp .Drafts .Sent .Trash .Templates}
+
+
+puts "building dirctories"
+
+
 end
