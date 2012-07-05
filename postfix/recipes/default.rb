@@ -43,18 +43,15 @@ if not node[:postfix].has_key?("required_mount") or
 			action :create
 		end
 		dom_data["users"].each do |user|
-			directory "#{mail_root}/#{domain}/#{user["mail_folder"]}" do
+			umf = user["mail_folder"]
+			directory "#{mail_root}/#{domain}/#{umf}" do
 				owner mail_owner
 				group mail_group
 				mode "0770"
 				action :create
 			end
-			folders.each do |folder|
-				dir_arr = [] << mail_root << domain
-				dir_arr << user["mail_folder"] << folder
-				dir_name = dir_arr.join('/')
-#				puts "building dir #{dir_name}"
-				directory dir_name do
+			folders.each do |f|
+				directory "#{mail_root}/#{domain}/#{umf}/#{f}" do
 					owner mail_owner
 					group mail_group
 					recursive true
