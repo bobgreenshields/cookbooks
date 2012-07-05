@@ -35,8 +35,8 @@ if node[:postfix].has_key?("smtp_login")
 		owner "root"
 		group "root"
 		variables ({
-			:smtp_server => node[:postfix][:smtp_server]
-			:smtp_login => node[:postfix][:smtp_login]
+			:smtp_server => node[:postfix][:smtp_server],
+			:smtp_login => node[:postfix][:smtp_login],
 			:smtp_password => node[:postfix][:smtp_password]
 		})
 	end
