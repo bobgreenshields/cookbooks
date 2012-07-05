@@ -1,5 +1,5 @@
 <% @domains.each do |domain, v| -%>
 	<% v["users"].each do |user| -%>
-		<%= user["name"] %>@<%= domain %> <%= domain %>/<%= user["mail_folder"] %>/
+<%= user["name"] %>@<%= domain %> <%= domain %>/<%= user["mail_folder"] %>/
 	<% end -%>
 <% end -%>
