@@ -39,7 +39,14 @@ if not node[:postfix].has_key?("required_mount") or
 				dir_arr = [] << mail_root << domain
 				dir_arr << user["mail_folder"] << folder
 				dir_name = dir_arr.join('/')
-				puts "building dir #{dir_name}"
+#				puts "building dir #{dir_name}"
+				directory dir_name do
+					owner node[:postfix][:mail_owner]
+					group node[:postfix][:mail_group]
+					recursive true
+					mode "0770"
+					action :create
+				end
 			end
 		end
 	end
