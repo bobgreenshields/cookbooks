@@ -28,7 +28,7 @@ template "/etc/postfix/vhosts" do
 	})
 end
 
-if node[:postfix].has_key?("required_mount") and
+if not node[:postfix].has_key?("required_mount") or
 	Regexp.new(node[:postfix][:required_mount]).match(`mount`)
 
 #	mail_root = node[:postfix][:mail_folder]
