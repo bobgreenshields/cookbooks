@@ -36,7 +36,7 @@ end
 if node[:postfix].has_key?("smtp_login")
 	template "/etc/postfix/saslpasswd" do
 		source "saslpasswd.erb"
-		mode "0644"
+		mode "0600"
 		owner "root"
 		group "root"
 		variables ({
