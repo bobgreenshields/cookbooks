@@ -33,7 +33,7 @@ if not node[:postfix].has_key?("required_mount") or
 
 	mail_root = node[:postfix][:mail_folder]
 	folders = %w{cur new tmp .Drafts .Sent .Trash .Templates}
-	node[:postfix][:domains].each |domain, dom_data| do
+	node[:postfix][:domains].each_pair |domain, dom_data| do
 		dom_data["users"].each |user| do
 			folders.each |folder| do
 				dir_arr = [] << mail_root << domain
