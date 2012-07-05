@@ -1,0 +1,23 @@
+= DESCRIPTION:
+Installs and configures postfix
+= REQUIREMENTS:
+
+= ATTRIBUTES: 
+"postfix": {
+				 "mail_folder": "/home/mail",
+         "domains": {
+                  "domain_name": {
+                               "users": [ {
+                               "name": "bob",
+                               "mail_folder: "bob"
+                               },
+                               {
+                               "name": "nicky",
+                               "mail_folder": "nicky"
+                               }
+                               ]
+                  }
+         }
+}
+= USAGE:
+
