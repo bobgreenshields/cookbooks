@@ -28,6 +28,11 @@ template "/etc/postfix/vhosts" do
 	})
 end
 
+execute "hash_saslpasswd" do
+	command "postmap /etc/postfix/saslpasswd"
+	action :nothing
+end
+
 if node[:postfix].has_key?("smtp_login")
 	template "/etc/postfix/saslpasswd" do
 		source "saslpasswd.erb"
@@ -39,6 +44,7 @@ if node[:postfix].has_key?("smtp_login")
 			:login => node[:postfix][:smtp_login],
 			:password => node[:postfix][:smtp_password]
 		})
+		notifies :run, "execute[hash_saslpasswd]", :immediately
 	end
 end
 
