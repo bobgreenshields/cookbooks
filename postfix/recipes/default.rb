@@ -27,3 +27,8 @@ template "/etc/postfix/vhosts" do
 		:domains => node[:postfix][:domains]
 	})
 end
+
+if node[:postfix].has_key?("required_mount") and
+	Regexp.new(node[:postfix][:required_mount]).match(`mount`)
+	puts "#{node[:postfix][:required_mount]} is mounted"
+end
