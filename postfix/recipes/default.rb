@@ -1,4 +1,4 @@
-package "postfox" do
+package "postfix" do
 	action :install
 end
 
