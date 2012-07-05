@@ -11,3 +11,13 @@ template "/etc/postfix/vmaps" do
 		:domains => node[:postfix][:domains]
 	})
 end
+
+template "/etc/postfix/vhosts" do
+	source "vhosts.erb"
+	mode "0644"
+	owner "root"
+	group "root"
+	variables ({
+		:domains => node[:postfix][:domains]
+	})
+end
