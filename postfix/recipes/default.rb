@@ -31,11 +31,21 @@ end
 if not node[:postfix].has_key?("required_mount") or
 	Regexp.new(node[:postfix][:required_mount]).match(`mount`)
 
-#	mail_root = node[:postfix][:mail_folder]
-#	folders = %w{cur new tmp .Drafts .Sent .Trash .Templates}
+	mail_root = node[:postfix][:mail_folder]
+	folders = %w{cur new tmp .Drafts .Sent .Trash .Templates}
+	node[:postfix][:domains].each |domain, dom_data| do
+		dom_data["users"].each |user| do
+			folders.each |folder| do
+				dir_arr = [] << mail_root << domain
+				dir_arr << user["mail_folder"] << folder
+				dir_name = dir_arr.join('/')
+				puts "building dir #{dir_name}"
+				end
+			end
+		end
+	end
 
 
-puts "building dirctories"
 
 
 end
