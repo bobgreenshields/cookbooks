@@ -40,12 +40,7 @@ if not node[:postfix].has_key?("required_mount") or
 				dir_arr << user["mail_folder"] << folder
 				dir_name = dir_arr.join('/')
 				puts "building dir #{dir_name}"
-				end
 			end
 		end
 	end
-
-
-
-
 end
