@@ -9,5 +9,8 @@ template "/etc/dovecot/passwd" do
 	mode "0660"
 	owner "root"
 	group "root"
+	variables ({
+		:domains => node[:dovecot][:domains]
+	})
 end
 
