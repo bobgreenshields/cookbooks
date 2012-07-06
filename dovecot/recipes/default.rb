@@ -18,3 +18,13 @@ template "/etc/dovecot/passwd" do
 	})
 end
 
+template "/etc/dovecot/users" do
+	source "users.erb"
+	mode "0664"
+	owner "root"
+	group "root"
+	variables ({
+		:domains => node[:dovecot][:domains]
+	})
+end
+

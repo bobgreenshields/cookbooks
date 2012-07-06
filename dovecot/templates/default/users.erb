@@ -1,0 +1,5 @@
+<% @domains.each do |domain, v| -%>
+	<% v["users"].each do |user| -%>
+<%= user["name"] %>@<%= domain %>::5000:5000:/mnt/vmail/<%= domain %>/:/bin/false::
+	<% end -%>
+<% end -%>
