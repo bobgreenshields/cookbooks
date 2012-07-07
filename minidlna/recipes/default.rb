@@ -3,6 +3,13 @@ package "minidlna" do
 	action :install
 end
 
+directory "/var/cache/minidlna" do
+	owner "minidlna"
+	group "minidlna"
+	mode "775"
+	action :create
+end
+
 dir_strs = node[:minidlna][:media_dirs].inject([]) do |arr, dir_data|
 	dir_str = "media_dir="
 	dir_str << (dir_data.has_key?("restriction") ? "#{dir_data["restriction"]}," : "")
