@@ -58,6 +58,7 @@ if smtp_auth_reqd
 	end
 end
 
+networks = [:postfix][:networks_base] << [:postfix][:networks].join(' ')
 
 template "/etc/postfix/main.cf" do
 	source "main.cf.erb"
@@ -70,7 +71,7 @@ template "/etc/postfix/main.cf" do
 		:smtp_server => node[:postfix][:smtp_server],
 		:smtp_port => node[:postfix][:smtp_port],
 		:smtp_auth_reqd => smtp_auth_reqd,
-		:networks => [:postfix][:networks_base] << [:postfix][:networks],
+		:networks => networks,
 		:mail_folder => node[:postfix][:mail_folder],
 		:virtual_uid => node[:postfix][:mail_uid],
 		:virtual_gid => node[:postfix][:mail_gid]
