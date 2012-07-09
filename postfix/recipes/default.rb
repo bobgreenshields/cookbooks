@@ -58,26 +58,28 @@ if smtp_auth_reqd
 	end
 end
 
-networks = [:postfix][:networks_base] << [:postfix][:networks].join(' ')
+#networks = [:postfix][:networks_base] << [:postfix][:networks].join(' ')
+networks = [:postfix][:networks_base]
+puts "networks is #{networks}"
 
-template "/etc/postfix/main.cf" do
-	source "main.cf.erb"
-	mode "0644"
-	owner "root"
-	group "root"
-	variables ({
-		:my_hostname => node[:postfix][:my_hostname],
-		:my_domain => node[:postfix][:my_domain],
-		:smtp_server => node[:postfix][:smtp_server],
-		:smtp_port => node[:postfix][:smtp_port],
-		:smtp_auth_reqd => smtp_auth_reqd,
-		:networks => networks,
-		:mail_folder => node[:postfix][:mail_folder],
-		:virtual_uid => node[:postfix][:mail_uid],
-		:virtual_gid => node[:postfix][:mail_gid]
-	})
-	notifies :restart, "service[postfix]"
-end
+#template "/etc/postfix/main.cf" do
+#	source "main.cf.erb"
+#	mode "0644"
+#	owner "root"
+#	group "root"
+#	variables ({
+#		:my_hostname => node[:postfix][:my_hostname],
+#		:my_domain => node[:postfix][:my_domain],
+#		:smtp_server => node[:postfix][:smtp_server],
+#		:smtp_port => node[:postfix][:smtp_port],
+#		:smtp_auth_reqd => smtp_auth_reqd,
+#		:networks => networks,
+#		:mail_folder => node[:postfix][:mail_folder],
+#		:virtual_uid => node[:postfix][:mail_uid],
+#		:virtual_gid => node[:postfix][:mail_gid]
+#	})
+#	notifies :restart, "service[postfix]"
+#end
 
 if not node[:postfix].has_key?("required_mount") or
 	Regexp.new(node[:postfix][:required_mount]).match(`mount`)
