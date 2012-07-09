@@ -59,7 +59,7 @@ if smtp_auth_reqd
 end
 
 #networks = [:postfix][:networks_base] << [:postfix][:networks].join(' ')
-#networks = [:postfix][:networks_base]
+networks = node[:postfix][:networks_base].join(' ')
 #networks = "hello"
 if node[:postfix].has_key?("networks_base")
 	puts "key has been found"
