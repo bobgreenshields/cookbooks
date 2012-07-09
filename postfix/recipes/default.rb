@@ -40,7 +40,9 @@ execute "hash_saslpasswd" do
 	action :nothing
 end
 
-if node[:postfix].has_key?("smtp_login")
+smtp_auth_reqd = node[:postfix].has_key?("smtp_login")
+
+if smtp_auth_reqd
 	template "/etc/postfix/saslpasswd" do
 		source "saslpasswd.erb"
 		mode "0600"
@@ -54,6 +56,26 @@ if node[:postfix].has_key?("smtp_login")
 		notifies :run, "execute[hash_saslpasswd]", :immediately
 		notifies :restart, "service[postfix]"
 	end
+end
+
+
+template "/etc/postfix/main.cf" do
+	source "main.cf.erb"
+	mode "0644"
+	owner "root"
+	group "root"
+	variables ({
+		:my_hostname => node[:postfix][:my_hostname]
+		:my_domain => node[:postfix][:my_domain],
+		:smtp_server => node[:postfix][:smtp_server],
+		:smtp_port => node[:postfix][:smtp_port],
+		:smtp_auth_reqd => smtp_auth_reqd,
+		:networks => [:postfix][:networks_base] << [:postfix][:networks]
+		:mail_folder => node[:postfix][:mail_folder],
+		:virtual_uid => node[:postfix][:mail_uid],
+		:virtual_gid => node[:postfix][:mail_gid]
+	})
+	notifies :restart, "service[postfix]"
 end
 
 if not node[:postfix].has_key?("required_mount") or
