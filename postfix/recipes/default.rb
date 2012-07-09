@@ -59,7 +59,8 @@ if smtp_auth_reqd
 end
 
 #networks = [:postfix][:networks_base] << [:postfix][:networks].join(' ')
-networks = [:postfix][:networks_base]
+#networks = [:postfix][:networks_base]
+networks = "hello"
 puts "networks is #{networks}"
 
 #template "/etc/postfix/main.cf" do
