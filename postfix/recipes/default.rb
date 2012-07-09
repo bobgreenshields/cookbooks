@@ -7,6 +7,11 @@ execute "hash_vmaps" do
 	action :nothing
 end
 
+service "postfix" do
+	supports :restart => true, :start => true, :stop => true
+	action :nothing
+end
+
 template "/etc/postfix/vmaps" do
 	source "vmaps.erb"
 	mode "0644"
@@ -16,6 +21,7 @@ template "/etc/postfix/vmaps" do
 		:domains => node[:postfix][:domains]
 	})
 	notifies :run, "execute[hash_vmaps]", :immediately
+	notifies :restart, "service[postfix]"
 end
 
 template "/etc/postfix/vhosts" do
@@ -26,6 +32,7 @@ template "/etc/postfix/vhosts" do
 	variables ({
 		:domains => node[:postfix][:domains]
 	})
+	notifies :restart, "service[postfix]"
 end
 
 execute "hash_saslpasswd" do
@@ -45,6 +52,7 @@ if node[:postfix].has_key?("smtp_login")
 			:password => node[:postfix][:smtp_password]
 		})
 		notifies :run, "execute[hash_saslpasswd]", :immediately
+		notifies :restart, "service[postfix]"
 	end
 end
 
