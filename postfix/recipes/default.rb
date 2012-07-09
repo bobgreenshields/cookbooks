@@ -65,12 +65,12 @@ template "/etc/postfix/main.cf" do
 	owner "root"
 	group "root"
 	variables ({
-		:my_hostname => node[:postfix][:my_hostname]
+		:my_hostname => node[:postfix][:my_hostname],
 		:my_domain => node[:postfix][:my_domain],
 		:smtp_server => node[:postfix][:smtp_server],
 		:smtp_port => node[:postfix][:smtp_port],
 		:smtp_auth_reqd => smtp_auth_reqd,
-		:networks => [:postfix][:networks_base] << [:postfix][:networks]
+		:networks => [:postfix][:networks_base] << [:postfix][:networks],
 		:mail_folder => node[:postfix][:mail_folder],
 		:virtual_uid => node[:postfix][:mail_uid],
 		:virtual_gid => node[:postfix][:mail_gid]
