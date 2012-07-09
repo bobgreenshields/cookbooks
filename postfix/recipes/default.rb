@@ -65,6 +65,7 @@ if node[:postfix].has_key?("networks_base")
 	puts "key has been found"
 else
 	puts "key has NOT been found"
+end
 puts "networks is #{networks}"
 
 #template "/etc/postfix/main.cf" do
