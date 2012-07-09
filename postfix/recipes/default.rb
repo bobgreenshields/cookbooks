@@ -59,8 +59,12 @@ if smtp_auth_reqd
 end
 
 #networks = [:postfix][:networks_base] << [:postfix][:networks].join(' ')
-networks = [:postfix][:networks_base]
+#networks = [:postfix][:networks_base]
 #networks = "hello"
+if node[:postfix].has_key?("networks_base")
+	puts "key has been found"
+else
+	puts "key has NOT been found"
 puts "networks is #{networks}"
 
 #template "/etc/postfix/main.cf" do
