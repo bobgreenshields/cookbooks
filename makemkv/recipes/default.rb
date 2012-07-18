@@ -50,13 +50,21 @@ mkvfiles.each do |f|
     cwd SRC_DIR
     creates "#{SRC_DIR}/#{f}"
   end
-  execute "make -f makefile.linux" do
-    cwd "#{SRC_DIR}/#{f}"
-  end
-  execute "make -f makefile.linux install" do
+  execute "chmod 777 tmp" do
     cwd "#{SRC_DIR}/#{f}"
     user "root"
   end
+  execute "chmod 777 out" do
+    cwd "#{SRC_DIR}/#{f}"
+    user "root"
+  end
+#  execute "make -f makefile.linux" do
+#    cwd "#{SRC_DIR}/#{f}"
+#  end
+#  execute "make -f makefile.linux install" do
+#    cwd "#{SRC_DIR}/#{f}"
+#    user "root"
+#  end
 end
 
 
