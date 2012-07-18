@@ -16,11 +16,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-VERSION = "1.6.14"
+#VERSION = "1.6.14"
 
-depends = %w(build-essential libc6-dev libssl-dev libgl1-mesa-dev libqt4-dev)
 
-depends.each do |p|
+node[:makemkv][:depends].each do |p|
   apt_package p do
     action :install
   end
@@ -34,18 +33,24 @@ directory SRC_DIR do
 end
 
 mkvfiles = %w(oss bin).inject([]) do |res, ft|
-  res << "makemkv_v#{VERSION}_#{ft}"
+  res << "makemkv_v#{node[:makemkv][:version]}_#{ft}"
+  res << "makemkv-#{ft}-#{node[:makemkv][:version]}"
 end
 
-mkvfiles.each do |f|
-  archive = "#{f}.tar.gz"
-  cookbook_file "#{SRC_DIR}/#{archive}" do
-    source archive
-    action :create_if_missing
-  end
+#http://www.makemkv.com/download/makemkv-bin-1.7.6.tar.gz
 
-  execute "tar xzf #{archive}" do
-    cwd SRC_DIR
-    creates "#{SRC_DIR}/#{f}"
-  end
-end
+mkvfiles.each do { |f| puts f }
+
+
+#mkvfiles.each do |f|
+#  archive = "#{f}.tar.gz"
+#  cookbook_file "#{SRC_DIR}/#{archive}" do
+#    source archive
+#    action :create_if_missing
+#  end
+#
+#  execute "tar xzf #{archive}" do
+#    cwd SRC_DIR
+#    creates "#{SRC_DIR}/#{f}"
+#  end
+#end
