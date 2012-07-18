@@ -50,6 +50,13 @@ mkvfiles.each do |f|
     cwd SRC_DIR
     creates "#{SRC_DIR}/#{f}"
   end
+  execute "make -f makefile.linux" do
+    cwd "#{SRC_DIR}/#{f}"
+  end
+  execute "make -f makefile.linux install" do
+    cwd "#{SRC_DIR}/#{f}"
+    user "root"
+  end
 end
 
 
