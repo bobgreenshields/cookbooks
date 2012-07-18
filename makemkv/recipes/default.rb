@@ -30,6 +30,7 @@ SRC_DIR = "/tmp/makemkv"
 # change this to the /tmp directory
 directory SRC_DIR do
   action :create
+  mode "0777"
 end
 
 mkvfiles = %w(oss bin).inject([]) do |res, ft|
@@ -54,13 +55,13 @@ mkvfiles.each do |f|
     cwd "#{SRC_DIR}"
     user "root"
   end
-  execute "make -f makefile.linux" do
-    cwd "#{SRC_DIR}/#{f}"
-  end
-  execute "make -f makefile.linux install" do
-    cwd "#{SRC_DIR}/#{f}"
-    user "root"
-  end
+#  execute "make -f makefile.linux" do
+#    cwd "#{SRC_DIR}/#{f}"
+#  end
+#  execute "make -f makefile.linux install" do
+#    cwd "#{SRC_DIR}/#{f}"
+#    user "root"
+#  end
 end
 
 
