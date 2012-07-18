@@ -46,6 +46,10 @@ mkvfiles.each do |f|
     source "http://www.makemkv.com/download/#{archive}"
     action :create_if_missing
   end
+  execute "tar xzf #{archive}" do
+    cwd SRC_DIR
+    creates "#{SRC_DIR}/#{f}"
+  end
 end
 
 
