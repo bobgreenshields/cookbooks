@@ -40,6 +40,15 @@ end
 
 mkvfiles.each { |f| puts f }
 
+mkvfiles.each do |f|
+  archive = "#{f}.tar.gz"
+  remote_file "#{SRC_DIR}/#{archive}" do
+    source "http://www.makemkv.com/download/#{archive}"
+    action :create_if_missing
+  end
+end
+
+
 
 #mkvfiles.each do |f|
 #  archive = "#{f}.tar.gz"
