@@ -33,7 +33,6 @@ directory SRC_DIR do
 end
 
 mkvfiles = %w(oss bin).inject([]) do |res, ft|
-  res << "makemkv_v#{node[:makemkv][:version]}_#{ft}"
   res << "makemkv-#{ft}-#{node[:makemkv][:version]}"
 end
 
