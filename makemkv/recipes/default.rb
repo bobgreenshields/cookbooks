@@ -39,7 +39,7 @@ end
 
 #http://www.makemkv.com/download/makemkv-bin-1.7.6.tar.gz
 
-mkvfiles.each do { |f| puts f }
+mkvfiles.each { |f| puts f }
 
 
 #mkvfiles.each do |f|
