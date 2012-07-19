@@ -6,9 +6,13 @@ execute "apt-get update" do
 	action :nothing
 end
 
-execute "add gnome-do repository" do
+execute "add handbrake ppa" do
 	user "root"
 	command "add-apt-repository ppa:#{node[:handbrake][:repo_name]}"
 	creates sources_file
 	notifies :run, "execute[apt-get update]", :immediately
+end
+
+package "handbrake-gtk" do
+	action :install
 end
