@@ -1,8 +1,5 @@
-
-repo_name = 'stebbins/handbrake-releases'
-
-codename = node[:lsb][:codename]
-sources_file = "stebbins-handbrake-releases-#{codename}.list"
+sources_file = ::File.join(node[:handbrake][:sources][:dir],
+	node[:handbrake][:sources][:file])
 
 execute "apt-get update" do
 	user "root"
@@ -11,7 +8,7 @@ end
 
 execute "add gnome-do repository" do
 	user "root"
-	command "add-apt-repository ppa:#{repo_name}"
+	command "add-apt-repository ppa:#{node[:handbrake][:repo_name]}"
 	creates sources_file
 	notifies :run, "execute[apt-get update]", :immediately
 end
