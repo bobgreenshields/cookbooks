@@ -10,7 +10,7 @@ end
 
 template "/etc/dovecot/passwd" do
 	source "passwd.erb"
-	mode "0660"
+	mode "0640"
 	owner "root"
 	group "root"
 	variables ({
@@ -20,7 +20,7 @@ end
 
 template "/etc/dovecot/users" do
 	source "users.erb"
-	mode "0664"
+	mode "0644"
 	owner "root"
 	group "root"
 	variables ({
