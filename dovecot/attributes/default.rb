@@ -1,11 +1,11 @@
 default["dovecot"]["base_dir"] = "/var/run/dovecot"
-default["dovecot"]["protocols"] = "imap"
+default["dovecot"]["protocols"] = { "imap" => 
+	{"login_executable" => "/usr/lib/dovecot/imap-login",
+		"mail_executable" => "/usr/lib/dovecot/imap"}
+}
 default["dovecot"]["disable_plaintext_auth"] = "no"
 default["dovecot"]["log_timestamp"] = "%Y-%m-%d %H:%M:%S"
 default["dovecot"]["ssl_disable"] = "yes"
-default["dovecot"]["protocol"] = [ { :type => "imap",
-	:values => {"login_executable" => "/usr/lib/dovecot/imap-login",
-		"mail_executable" => "/usr/lib/dovecot/imap"} } ]
 default["dovecot"]["auth_default"]["mechanism"] = "plain"
 default["dovecot"]["auth_default"]["passdb"]["type"] = "passwd-file"
 default["dovecot"]["auth_default"]["passdb"]["args"] = "/etc/dovecot/passwd"
