@@ -30,7 +30,7 @@ template "/etc/dovecot/users" do
 end
 
 template "/etc/dovecot/dovecot.conf" do
-	source "conf2.erb"
+	source "conf.erb"
 	mode "0644"
 	owner "root"
 	group "root"
