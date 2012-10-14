@@ -15,7 +15,7 @@ mail_location = <%= @mail_location %>
 mmap_disable = no
 valid_chroot_dirs = <%= @valid_chroot_dirs %>
 #valid_chroot_dirs = /var/spool/postfix
-<% @protcols.each do |protocol, vals| -%>
+<% @protocols.each do |protocol, vals| -%>
 protocol <%= protocol %> {
 	<% vals.each do |name, value| -%>
   <%= name %> = <%= value %>
