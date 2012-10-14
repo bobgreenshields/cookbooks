@@ -1,5 +1,5 @@
 base_dir = <%= @base_dir %>
-protocols = <%= @protocols.keys.to_s %>
+protocols = <%= @protocols.keys.join %>
 #protocols = imap pop3
 disable_plaintext_auth = <%= @disable_plaintext_auth %>
 shutdown_clients = yes
