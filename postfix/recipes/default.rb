@@ -87,6 +87,13 @@ if not node[:postfix].has_key?("required_mount") or
 	mail_root = node[:postfix][:mail_folder]
 	mail_owner = node[:postfix][:mail_owner]
 	mail_group = node[:postfix][:mail_group]
+	directory "#{mail_root}" do
+		owner mail_owner
+		group mail_group
+		mode "0770"
+		action :create
+		recursive true
+	end
 	folders = %w{cur new tmp .Drafts .Sent .Trash .Templates}
 	node[:postfix][:domains].each do |domain, dom_data|
 		directory "#{mail_root}/#{domain}" do
