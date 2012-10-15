@@ -33,6 +33,10 @@ log_path = node[:getmail][:log_path]
 log_file = node[:getmail][:log_file]
 message_log = "#{log_path}/#{log_file}"
 
+log "log_path is #{log_path}"
+log "log_file is #{log_file}"
+log "message_log is #{message_log}"
+
 directory log_path do
 	action :create
 	owner "vmail"
