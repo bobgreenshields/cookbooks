@@ -29,6 +29,25 @@ directory "/home/vmail/.getmail" do
 	mode "0755"
 end
 
+log_path = node["getmail"]["log_path"]
+log_file = node["getmail"]["log_file"]
+message_log = "#{logpath}/#{log_file}"
+
+directory log_path do
+	action :create
+	owner "vmail"
+	group "vmail"
+	mode "0755"
+end
+
+file message_log do
+	action :create_if_missing
+	owner "vmail"
+	group "vmail"
+	mode "0644"
+end
+
+
 node["getmail"]["rc"].each do |name, details|
 
 	template "/home/vmail/.getmail/#{name}.rc" do
@@ -45,7 +64,7 @@ node["getmail"]["rc"].each do |name, details|
 			:verbose_level => node[:getmail][:verbose_level],
 			:read_all => node[:getmail][:read_all],
 			:delete_after => node[:getmail][:delete_after],
-			:message_log => node[:getmail][:message_log]
+			:message_log => message_log
 		})
 	end
 
