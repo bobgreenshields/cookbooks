@@ -4,6 +4,7 @@ mail_uid = node[:mail][:mail_uid].to_i
 mail_gid = node[:mail][:mail_gid].to_i
 mail_folder = node[:mail][:mail_folder]
 required_mount = node[:mail][:required_mount]
+home_dir = "/home/#{mail_owner}"
 
 group mail_group do
 	gid mail_gid
@@ -13,9 +14,16 @@ user mail_owner do
 	action :create
 	uid mail_uid
 	gid mail_gid
-	home "/home/#{mail_owner}"
+	home home_dir
 	shell "/bin/bash"
 	supports :manage_home => true
+end
+
+directory home_dir do
+	action :create
+	owner mail_owner
+	group mail_group
+	mode "0700"
 end
 
 directory "/mnt/mail" do
