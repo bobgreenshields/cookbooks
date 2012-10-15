@@ -31,7 +31,7 @@ end
 
 log_path = node["getmail"]["log_path"]
 log_file = node["getmail"]["log_file"]
-message_log = "#{logpath}/#{log_file}"
+message_log = "#{log_path}/#{log_file}"
 
 directory log_path do
 	action :create
