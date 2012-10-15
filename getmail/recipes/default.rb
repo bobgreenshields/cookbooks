@@ -29,6 +29,8 @@ directory "/home/vmail/.getmail" do
 	mode "0755"
 end
 
+log node[:getmail][:log_path]
+log node[:getmail][:log_file]
 log_path = node[:getmail][:log_path]
 log_file = node[:getmail][:log_file]
 message_log = "#{log_path}/#{log_file}"
@@ -37,19 +39,19 @@ log "log_path is #{log_path}"
 log "log_file is #{log_file}"
 log "message_log is #{message_log}"
 
-directory log_path do
-	action :create
-	owner "vmail"
-	group "vmail"
-	mode "0755"
-end
-
-file message_log do
-	action :create_if_missing
-	owner "vmail"
-	group "vmail"
-	mode "0644"
-end
+#directory log_path do
+#	action :create
+#	owner "vmail"
+#	group "vmail"
+#	mode "0755"
+#end
+#
+#file message_log do
+#	action :create_if_missing
+#	owner "vmail"
+#	group "vmail"
+#	mode "0644"
+#end
 
 
 node["getmail"]["rc"].each do |name, details|
