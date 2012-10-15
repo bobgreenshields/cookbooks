@@ -29,8 +29,8 @@ directory "/home/vmail/.getmail" do
 	mode "0755"
 end
 
-log_path = node["getmail"]["log_path"]
-log_file = node["getmail"]["log_file"]
+log_path = node[:getmail][:log_path]
+log_file = node[:getmail][:log_file]
 message_log = "#{log_path}/#{log_file}"
 
 directory log_path do
