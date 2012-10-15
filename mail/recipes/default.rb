@@ -13,7 +13,7 @@ user mail_owner do
 	gid mail_gid
 	home "/home/#{mail_owner}"
 	shell "/bin/bash"
-	supports {:manage_home => true}
+	supports :manage_home => true
 end
 
 directory "/mnt/mail" do
