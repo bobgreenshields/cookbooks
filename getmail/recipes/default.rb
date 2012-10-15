@@ -22,21 +22,32 @@ package "getmail4" do
 	action :install
 end
 
-
-template "/etc/dovecot/dovecot.conf" do
-	source "rc.erb"
-	mode "0644"
+directory "/home/vmail/.getmail" do
+	action :create
 	owner "vmail"
 	group "vmail"
-	variables ({
-		:type => node[:getmail][:type],
-		:server => node[:getmail][:server],
-		:username => node[:getmail][:username],
-		:password => node[:getmail][:password],
-		:mail_path => node[:getmail][:mail_path],
-		:verbose_level => node[:getmail][:verbose_level],
-		:read_all => node[:getmail][:read_all],
-		:delete_after => node[:getmail][:delete_after],
-		:message_log => node[:getmail][:message_log]
-	})
+	mode "0755"
 end
+
+node["getmail"]["rc"].each do |name, details|
+
+	template "/home/vmail/.getmail/#{name}.rc" do
+		source "rc.erb"
+		mode "0640"
+		owner "vmail"
+		group "vmail"
+		variables ({
+			:retrvr_type => node[:getmail][:retrvr_type],
+			:server => details["server"],
+			:username => details["username"],
+			:password => details["password"],
+			:mail_path => details["mail_path"],
+			:verbose_level => node[:getmail][:verbose_level],
+			:read_all => node[:getmail][:read_all],
+			:delete_after => node[:getmail][:delete_after],
+			:message_log => node[:getmail][:message_log]
+		})
+	end
+
+end
+
