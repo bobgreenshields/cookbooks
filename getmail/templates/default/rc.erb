@@ -1,0 +1,16 @@
+# THIS ONE
+[retriever]
+type = SimplePOP3Retriever
+server = pop3.gradwell.net
+username = bob@pop3.thegreenshields.com
+password = rOEyaFF4G6v2
+
+[destination]
+type = Maildir
+path = /home/vmail/mail/thegreenshields.com/bob/
+
+[options]
+verbose = 2
+read_all = false
+delete_after = 3
+message_log = /var/log/getmail/gm.log
