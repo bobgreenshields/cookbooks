@@ -1,16 +1,15 @@
-# THIS ONE
 [retriever]
-type = SimplePOP3Retriever
-server = pop3.gradwell.net
-username = bob@pop3.thegreenshields.com
-password = rOEyaFF4G6v2
+type = <%= @retrvr_type%>
+server = <%= @server %>
+username = <%= @username %>
+password = <%= @password %>
 
 [destination]
 type = Maildir
-path = /home/vmail/mail/thegreenshields.com/bob/
+path = <%= @mail_path %>
 
 [options]
-verbose = 2
-read_all = false
-delete_after = 3
-message_log = /var/log/getmail/gm.log
+verbose = <%= @verbose_level %>
+read_all = <%= @read_all %>
+delete_after = <%= @delete_after %>
+message_log = <%= @message_log %>
