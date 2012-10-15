@@ -25,7 +25,8 @@ template "/etc/dovecot/users" do
 	owner "root"
 	group "root"
 	variables ({
-		:domains => node[:dovecot][:domains]
+		:domains => node[:dovecot][:domains],
+		:mail_folder => node[:dovecot][:mail_folder]
 	})
 end
 
