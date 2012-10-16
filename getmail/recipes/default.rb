@@ -55,7 +55,6 @@ end
 
 
 node["getmail"]["rc"].each do |name, details|
-
 	template "/home/vmail/.getmail/#{name}.rc" do
 		source "rc.erb"
 		mode "0640"
@@ -73,6 +72,5 @@ node["getmail"]["rc"].each do |name, details|
 			:message_log => message_log
 		})
 	end
-
 end
 
