@@ -31,7 +31,7 @@ protocol <%= protocol %> {
 #  mail_executable = /usr/lib/dovecot/pop3
 #  pop3_uidl_format = %08Xu%08Xv
 #}
-auth_executable = /usr/lib/dovecot/dovecot-auth
+auth_executable = /usr/lib/dovecot/auth
 auth_verbose = yes
 auth default {
   mechanisms = <%= @auth_default["mechanisms"]  %>
