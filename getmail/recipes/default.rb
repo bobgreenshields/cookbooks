@@ -51,6 +51,8 @@ end
 
 
 node["getmail"]["rc"].each do |name, details|
+	mail_path = details["mail_path"]
+	mail_path << '/' unless mail_path[-1] == '/'
 	template "/home/vmail/.getmail/#{name}.rc" do
 		source "rc.erb"
 		mode "0640"
@@ -61,7 +63,7 @@ node["getmail"]["rc"].each do |name, details|
 			:server => details["server"],
 			:username => details["username"],
 			:password => details["password"],
-			:mail_path => details["mail_path"],
+			:mail_path => mail_path,
 			:verbose_level => node[:getmail][:verbose_level],
 			:read_all => node[:getmail][:read_all],
 			:delete_after => node[:getmail][:delete_after],
