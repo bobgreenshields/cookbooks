@@ -71,7 +71,7 @@ node["getmail"]["rc"].each do |name, details|
 end
 
 site_ruby = node["getmail"]["site_ruby"]
-Chef::Log.info("site_ruby dir is #{site_ruby}")
+log ("site_ruby dir is #{site_ruby}")
 
 unless File.exist? site_ruby
 	Chef::Log.fatal("Could not find site_ruby dir #{site_ruby}")
