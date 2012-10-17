@@ -47,6 +47,7 @@ directory mail_folder do
 	action :create
 	recursive true
 	only_if do
-		Regexp.new(required_mount).match(`mount`)
+		Regexp.new(required_mount).match(`mount`) and
+		(not File.exist?(mail_folder))
 	end
 end
