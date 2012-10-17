@@ -80,7 +80,7 @@ end
 getmail_folder = File.join(site_ruby, "getmail")
 
 git getmail_folder do
-	repository "git@github.com:bobgreenshields/getmail.git"
+	repository "git://github.com:bobgreenshields/getmail.git"
 	reference "master"
 	action :sync
 end
