@@ -70,6 +70,24 @@ node["getmail"]["rc"].each do |name, details|
 	end
 end
 
+rc_files = node["getmail"]["rc"].keys
+
+template "/home/vmail/.getmailrb" do
+	source "getmailrb.erb"
+	mode "0640"
+	owner "vmail"
+	group "vmail"
+	variables ({
+		:stop_file => node[:getmail][:stop_file],
+		:lock_file => node[:getmail][:lock_file],
+		:reqd_mount => node[:getmail][:reqd_mount],
+		:rc_files => rc_files
+	})
+end
+
+
+
+
 site_ruby = node["getmail"]["site_ruby"]
 log ("site_ruby dir is #{site_ruby}")
 

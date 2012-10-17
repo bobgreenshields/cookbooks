@@ -1,6 +1,10 @@
 ---
-:reqd_mount: galactica...
+:stop_file: <%= @stop_file %>
+:lock_file: <%= @lock_file %>
 :rcfiles:
-  - bobthistestrc
-:stop_file: stop
-:lock_file: lock
+<% @rcfiles.each do |rc| -%>
+  - <%= rc %>.rc
+<% end -%>
+<% if @reqd_mount -%>
+:reqd_mount: <%= @reqd_mount %>
+<% end -%>
