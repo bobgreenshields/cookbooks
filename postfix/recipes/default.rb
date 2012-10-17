@@ -84,7 +84,8 @@ end
 if node[:postfix].has_key?("required_mount")
 	req_mnt = node[:postfix][:required_mount]
 	unless Regexp.new(req_mnt).match(`mount`)
-		Chef::Log.fatal("Could not build dir structure as missing mount #{req_mnt}")
+		raise Chef::Exceptions::FileNotFound,
+			"Could not build dir structure as missing mount #{req_mnt}"
 	end
 end
 
