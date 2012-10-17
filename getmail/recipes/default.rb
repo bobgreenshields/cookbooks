@@ -73,8 +73,9 @@ end
 site_ruby = node["getmail"]["site_ruby"]
 log ("site_ruby dir is #{site_ruby}")
 
-unless File.exist? site_ruby
-	Chef::Log.fatal("Could not find site_ruby dir #{site_ruby}")
+unless File.exist?(site_ruby)
+	log("Could not find site_ruby dir #{site_ruby}") { level :fatal }
+#	Chef::Log.fatal("Could not find site_ruby dir #{site_ruby}")
 end
 
 getmail_folder = File.join(site_ruby, "getmail")
