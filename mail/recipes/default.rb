@@ -27,10 +27,10 @@ directory home_dir do
 end
 
 directory "/mnt/mail" do
+	action :create
 	owner mail_owner
 	group mail_group
 	mode "0770"
-	action :create
 end
 
 mount "/mnt/mail" do
