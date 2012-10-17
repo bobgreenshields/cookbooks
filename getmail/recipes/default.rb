@@ -35,10 +35,6 @@ log_path = node[:getmail][:log_path]
 log_file = node[:getmail][:log_file]
 message_log = "#{log_path}/#{log_file}"
 
-log "log_path is #{log_path}"
-log "log_file is #{log_file}"
-log "message_log is #{message_log}"
-
 directory log_path do
 	action :create
 	owner "vmail"
@@ -73,4 +69,19 @@ node["getmail"]["rc"].each do |name, details|
 		})
 	end
 end
+
+site_ruby = node["getmail"]["site_ruby"]
+
+unless File.exist? site_ruby
+	Chef::Log.fatal("Could not find site_ruby dir #{site_ruby}")
+end
+
+getmail_folder = File.join(site_ruby, "getmail")
+
+git getmail_folder do
+	repository "git@github.com:bobgreenshields/getmail.git"
+	reference "master"
+	action :sync
+end
+
 
