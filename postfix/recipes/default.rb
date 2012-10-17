@@ -81,37 +81,51 @@ template "/etc/postfix/main.cf" do
 	notifies :restart, "service[postfix]"
 end
 
-if not node[:postfix].has_key?("required_mount") or
-	Regexp.new(node[:postfix][:required_mount]).match(`mount`)
+if node[:postfix].has_key?("required_mount")
+	req_mnt = node[:postfix][:required_mount]
+	unless Regexp.new(req_mnt).match(`mount`)
+		raise Chef::Exceptions::FileNotFound,
+			"Could not build dir structure as missing mount #{req_mnt}"
+	end
+end
 
-	mail_root = node[:postfix][:mail_folder]
-	mail_owner = node[:postfix][:mail_owner]
-	mail_group = node[:postfix][:mail_group]
-	folders = %w{cur new tmp .Drafts .Sent .Trash .Templates}
-	node[:postfix][:domains].each do |domain, dom_data|
-		directory "#{mail_root}/#{domain}" do
+mail_root = node[:postfix][:mail_folder]
+mail_owner = node[:postfix][:mail_owner]
+mail_group = node[:postfix][:mail_group]
+directory "#{mail_root}" do
+	owner mail_owner
+	group mail_group
+	mode "0770"
+	action :create
+	recursive true
+end
+
+node[:postfix][:domains].each do |domain, dom_data|
+	directory "#{mail_root}/#{domain}" do
+		owner mail_owner
+		group mail_group
+		mode "0770"
+		action :create
+	end
+
+	dom_data["users"].each do |user|
+		umf = user["mail_folder"]
+		directory "#{mail_root}/#{domain}/#{umf}" do
 			owner mail_owner
 			group mail_group
 			mode "0770"
 			action :create
-		end
-		dom_data["users"].each do |user|
-			umf = user["mail_folder"]
-			directory "#{mail_root}/#{domain}/#{umf}" do
+		end # directory
+
+		node[:postfix][:mail_folders].each do |f|
+			directory "#{mail_root}/#{domain}/#{umf}/#{f}" do
 				owner mail_owner
 				group mail_group
+				recursive true
 				mode "0770"
 				action :create
-			end
-			folders.each do |f|
-				directory "#{mail_root}/#{domain}/#{umf}/#{f}" do
-					owner mail_owner
-					group mail_group
-					recursive true
-					mode "0770"
-					action :create
-				end
-			end
-		end
-	end
-end
+			end # directory
+		end # folders.each
+	end # dom_data["users"]
+
+end # node[:postfix][:domains]

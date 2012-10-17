@@ -1,0 +1,7 @@
+default["getmail"]["retrvr_type"] = "SimplePOP3Retriever"
+default["getmail"]["verbose_level"] = "1"
+default["getmail"]["read_all"] = "false"
+default["getmail"]["delete_after"] = "3"
+default["getmail"]["log_path"] = "/var/log/getmail"
+default["getmail"]["log_file"] = "gm.log"
+default["getmail"]["site_ruby"] = "/usr/local/lib/site_ruby"

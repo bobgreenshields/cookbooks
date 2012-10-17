@@ -1,0 +1,10 @@
+---
+:stop_file: <%= @stop_file %>
+:lock_file: <%= @lock_file %>
+:rcfiles:
+<% @rc_files.each do |rc| -%>
+  - <%= rc %>.rc
+<% end -%>
+<% if @reqd_mount -%>
+:reqd_mount: <%= @reqd_mount %>
+<% end -%>

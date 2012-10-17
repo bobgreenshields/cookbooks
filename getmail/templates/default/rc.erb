@@ -1,0 +1,15 @@
+[retriever]
+type = <%= @retrvr_type%>
+server = <%= @server %>
+username = <%= @username %>
+password = <%= @password %>
+
+[destination]
+type = Maildir
+path = <%= @mail_path %>
+
+[options]
+verbose = <%= @verbose_level %>
+read_all = <%= @read_all %>
+delete_after = <%= @delete_after %>
+message_log = <%= @message_log %>
