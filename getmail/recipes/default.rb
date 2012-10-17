@@ -88,3 +88,6 @@ end
 link File.join(site_ruby, "getmail.rb") do
 	to File.join(getmail_folder, "lib", "getmail.rb")
 end
+
+gem_package "lockfile" do
+end
