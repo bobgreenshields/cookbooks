@@ -75,6 +75,7 @@ log ("site_ruby dir is #{site_ruby}")
 
 unless File.exist?(site_ruby)
 	log("Could not find site_ruby dir #{site_ruby}") { level :fatal }
+	raise Chef::Exceptions::FileNotFound("Could not find site_ruby dir #{site_ruby}")
 #	Chef::Log.fatal("Could not find site_ruby dir #{site_ruby}")
 end
 
