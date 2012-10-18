@@ -105,9 +105,16 @@ git getmail_folder do
 	action :sync
 end
 
-link File.join(site_ruby, "getmail.rb") do
+getmail_link = File.join(site_ruby, "getmail.rb")
+link getmail_link do
 	to File.join(getmail_folder, "lib", "getmail.rb")
 end
 
 gem_package "lockfile" do
+end
+
+cron "getmail" do
+	minute "/2"
+	user "vmail"
+	command "/usr/bin/ruby #{getmail_link}"
 end
