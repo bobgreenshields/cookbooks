@@ -114,7 +114,7 @@ gem_package "lockfile" do
 end
 
 cron "getmail" do
-	minute "/2"
+	minute "*/2"
 	user "vmail"
 	command "/usr/bin/ruby #{getmail_link}"
 end
