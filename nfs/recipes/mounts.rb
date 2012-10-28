@@ -13,7 +13,7 @@ unless node["nfs"]["mounts"].empty?
       device v["device"]
       fstype "nfs"
       if v.has_key? "action"
-        Array(v["action"]).inject([]) { |res, str| res << str.to_sym }
+        action Array(v["action"]).inject([]) { |res, str| res << str.to_sym }
       end
       options v["options"] if v.has_key? "options"
     end # mount
