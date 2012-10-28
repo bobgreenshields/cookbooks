@@ -23,6 +23,7 @@ unless node["nfs"]["mounts"].empty?
 				link link_name do
 					to mount_point
 				end
+			end
 		end
 
   end # mounts.each
