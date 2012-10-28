@@ -17,5 +17,13 @@ unless node["nfs"]["mounts"].empty?
       end
       options v["options"] if v.has_key? "options"
     end # mount
+
+		if v.has_key? "links"
+			Array(v["links"]).each do |link_name|
+				link link_name do
+					to mount_point
+				end
+		end
+
   end # mounts.each
 end # unless
