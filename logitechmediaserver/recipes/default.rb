@@ -2,7 +2,7 @@
 # Cookbook Name:: hosts
 # Recipe:: default
 #
-# Copyright 2009, Opscode, Inc.
+# Copyright 2013, Robert Greenshields
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,4 +18,18 @@
 #
 
 
+log "version is #{node['lms']['lms_deb_version']}" do
+	level :info
+end
 
+log "file is #{node['lms']['lms_deb_file']}" do
+	level :info
+end
+
+log "url is #{node['lms']['lms_deb_url']}" do
+	level :info
+end
+
+log "arch is #{node['lms']['arch']}" do
+	level :info
+end
