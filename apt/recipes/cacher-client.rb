@@ -29,7 +29,7 @@ if Chef::Config['solo']
   if node['apt'] && node['apt']['cacher_ipaddress']
     cacher = Chef::Node.new
     cacher.name(node['apt']['cacher_ipaddress'])
-    cacher.ipaddress(node['apt']['cacher_ipaddress'])
+    cacher.set['ipaddress'] = node['apt']['cacher_ipaddress']
     servers << cacher
   end
 else
