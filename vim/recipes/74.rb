@@ -24,9 +24,12 @@ execute "update-apt-for-vim-74" do
 	action :nothing
 end
 
-ppa_sources_file = '/etc/apt/sources.list.d/fcwu-tw-ppa-raring.list'
+#ppa_sources_file = '/etc/apt/sources.list.d/fcwu-tw-ppa-raring.list'
 
 if (node[:platform] == "ubuntu") and (node[:platform_version].to_f <= 13.04) then
+
+  ppa_sources_file = "/etc/apt/sources.list.d/fcwu-tw-ppa-#{node[:codename]}.list"
+
   execute "add ppa for vim 7.4" do
   	command "add-apt-repository ppa:fcwu-tw/ppa"
   	user "root"
