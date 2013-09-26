@@ -16,6 +16,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+require_recipe "audio::lame"
+require_recipe "audio::flac"
+require_recipe "audio::cdrdao"
 
 execute "add_repo_gpg_key" do
 	command "wget -q -O- http://archive.getdeb.net/getdeb-archive.key | apt-key add -"
