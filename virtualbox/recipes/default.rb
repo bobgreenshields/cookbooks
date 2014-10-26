@@ -62,6 +62,11 @@ when "ubuntu","debian"
     template "/etc/apt/sources.list.d/oracle-virtualbox.list" do
       source "oracle-virtualbox.list.erb"
       mode 0644
+      owner "root"
+      group "root"
+      variables({
+      	:distrib => node['lsb']['codename']
+      })
       notifies :run, resources(:bash => "add Oracle key"), :immediately
     end
   end
