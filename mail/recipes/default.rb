@@ -1,3 +1,5 @@
+include_recipe "nfs"
+
 mail_owner = node[:mail][:mail_owner]
 mail_group = node[:mail][:mail_group]
 mail_uid = node[:mail][:mail_uid].to_i
