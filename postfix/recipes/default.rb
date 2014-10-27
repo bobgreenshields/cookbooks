@@ -58,7 +58,9 @@ if smtp_auth_reqd
 	end
 end
 
-networks = (node[:postfix][:networks_base] << node[:postfix][:networks]).join(' ')
+networks_array = node[:postfix][:networks_base] + Array(node[:postfix][:networks])
+networks = networks_array.join(' ')
+#networks = (node[:postfix][:networks_base] << node[:postfix][:networks]).join(' ')
 #networks = node[:postfix][:networks_base].join(' ')
 #networks = "hello"
 
