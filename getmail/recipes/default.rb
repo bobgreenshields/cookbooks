@@ -22,12 +22,23 @@ package "getmail4" do
 	action :install
 end
 
-directory "/home/vmail/.getmail" do
+# Do not create the directory for .getmail
+# link it from galactica instead
+#
+#directory "/home/vmail/.getmail" do
+#	action :create
+#	owner "vmail"
+#	group "vmail"
+#	mode "0755"
+#end
+
+link "/home/vmail/.getmail" do
+	to '/mnt/mail/botanybay/getmail'
 	action :create
 	owner "vmail"
 	group "vmail"
-	mode "0755"
 end
+
 
 log node[:getmail][:log_path]
 log node[:getmail][:log_file]
@@ -49,43 +60,46 @@ file message_log do
 	mode "0644"
 end
 
-
-node["getmail"]["rc"].each do |name, details|
-	mail_path = details["mail_path"]
-	mail_path << '/' unless mail_path[-1] == '/'
-	template "/home/vmail/.getmail/#{name}.rc" do
-		source "rc.erb"
-		mode "0640"
-		owner "vmail"
-		group "vmail"
-		variables ({
-			:retrvr_type => node[:getmail][:retrvr_type],
-			:server => details["server"],
-			:username => details["username"],
-			:password => details["password"],
-			:mail_path => mail_path,
-			:verbose_level => node[:getmail][:verbose_level],
-			:read_all => node[:getmail][:read_all],
-			:delete_after => node[:getmail][:delete_after],
-			:message_log => message_log
-		})
-	end
-end
-
-rc_files = node["getmail"]["rc"].keys
-
-template "/home/vmail/.getmailrb" do
-	source "getmailrb.erb"
-	mode "0640"
-	owner "vmail"
-	group "vmail"
-	variables ({
-		:stop_file => node[:getmail][:stop_file],
-		:lock_file => node[:getmail][:lock_file],
-		:reqd_mount => node[:getmail][:reqd_mount],
-		:rc_files => rc_files
-	})
-end
+# no need to generate the getmailrc now, it's in the linked directory
+# the rc files are also persisted now
+# as are the oldmail files so no duplication of mail downloads
+#
+#node["getmail"]["rc"].each do |name, details|
+#	mail_path = details["mail_path"]
+#	mail_path << '/' unless mail_path[-1] == '/'
+#	template "/home/vmail/.getmail/#{name}.rc" do
+#		source "rc.erb"
+#		mode "0640"
+#		owner "vmail"
+#		group "vmail"
+#		variables ({
+#			:retrvr_type => node[:getmail][:retrvr_type],
+#			:server => details["server"],
+#			:username => details["username"],
+#			:password => details["password"],
+#			:mail_path => mail_path,
+#			:verbose_level => node[:getmail][:verbose_level],
+#			:read_all => node[:getmail][:read_all],
+#			:delete_after => node[:getmail][:delete_after],
+#			:message_log => message_log
+#		})
+#	end
+#end
+#
+#rc_files = node["getmail"]["rc"].keys
+#
+#template "/home/vmail/.getmailrb" do
+#	source "getmailrb.erb"
+#	mode "0640"
+#	owner "vmail"
+#	group "vmail"
+#	variables ({
+#		:stop_file => node[:getmail][:stop_file],
+#		:lock_file => node[:getmail][:lock_file],
+#		:reqd_mount => node[:getmail][:reqd_mount],
+#		:rc_files => rc_files
+#	})
+#end
 
 
 
