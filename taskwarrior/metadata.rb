@@ -1,4 +1,4 @@
-name             "empty"
+name             "taskwarrior"
 maintainer       "Bob Greenshields"
 maintainer_email "bob@thegreenshields.com"
 license          "Apache 2.0"
