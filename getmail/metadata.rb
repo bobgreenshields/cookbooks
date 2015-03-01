@@ -1,3 +1,4 @@
+name             "getmail"
 maintainer       "Bob Greenshields"
 maintainer_email ""
 license          "Apache 2.0"
