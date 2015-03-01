@@ -1,6 +1,7 @@
-maintainer       "Chris Peplin"
-maintainer_email "chris.peplin@rhubarbtech.com"
+name             "empty"
+maintainer       "Bob Greenshields"
+maintainer_email "bob@thegreenshields.com"
 license          "Apache 2.0"
-description      "Installs virtualbox"
-long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "0.6.1"
+description      ""
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
+version          "0.1"
