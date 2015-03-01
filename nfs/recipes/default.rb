@@ -25,12 +25,12 @@ end
 # Start NFS client components
 service "portmap" do
   service_name node['nfs']['service']['portmap']
-  action [ :start, :enable ]
+  action [ :start, :enable, :restart ]
 end
 
 service "nfslock" do
   service_name node['nfs']['service']['lock']
-  action [ :start, :enable ]
+  action [ :start, :enable, :restart ]
 end
 
 # Configure NFS client components
